@@ -1,3 +1,7 @@
+<?php 
+require_once 'db_connect.php';
+?>
+
 <!doctype html>
 <html lang="en">
 <head>

@@ -1,3 +1,7 @@
+<?php
+require_once 'db_connect.php';
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -40,16 +44,16 @@
                     <a class="nav-link px-3 active" aria-current="page" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="order.html">Find food</a>
+                    <a class="nav-link px-3" href="order.php">Find food</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="order.html">Categories</a>
+                    <a class="nav-link px-3" href="order.php">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="restaurants.html">Restaurants</a>
+                    <a class="nav-link px-3" href="restaurants.php">Restaurants</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="order.html">About us</a>
+                    <a class="nav-link px-3" href="order.php">About us</a>
                 </li>
             </ul>
 
