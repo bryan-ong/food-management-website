@@ -108,33 +108,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include 'util/navbar.php'; ?>
 
-    <div class="mx-auto text-center flex-grow py-3 bg-green shadow-lg">
-        <h1 class="mx-5 my-5 text-white">Edit Restaurant<h1>
-    </div>
+    <div class="d-flex py-5 mb-5 justify-content-center align-items-center bg-green shadow-xlg">
+            <div class="text-white text-center fs-1 w-100 fw-semibold">
+                Edit Restaurant and Dishes
+            </div>
+        </div>
+
 
 
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-12">
-                <a href="admin.php" class="text-decoration-none" style="color: var(--grab-green)">
-                    <h2 class="mb-5">
-                        < Back to Dashboard</h2>
+                <a href="admin.php" class="text-decoration-none mb-5 btn btn-green rounded-pill">
+                    <h3 class="my-auto align-items-center">Back to Dashboard</h3>
                 </a>
 
-                <div class="mb-5">
-                    <h3 class="mb-4">Select a Restaurant to Edit</h3>
-                    <div class="row">
+                <div class="mb-0 pb-0">
+                    <h3 class="mb-5">Select a Restaurant to Edit</h3>
+                    <div class="row row-cols-2 row-cols-md-4 g-4">
+
+
                         <?php foreach ($all_restaurants as $r): ?>
-                            <div class="col-6 col-md-3">
-                                <form method="POST" class="h-100">
+                            <div class="col">
+                                <form method="POST">
                                     <input type="hidden" name="select_restaurant" value="<?= $r['restaurant_id'] ?>">
-                                    <div class="card restaurant-card h-100 <?= isset($restaurant['restaurant_id']) && $restaurant['restaurant_id'] == $r['restaurant_id'] ? 'selected-restaurant' : '' ?>">
+                                    <div class="card grub-card h-75" <?= isset($restaurant['restaurant_id']) && $restaurant['restaurant_id'] == $r['restaurant_id'] ? 'selected-restaurant' : '' ?>">
                                         <?php if (!empty($r['image_url'])): ?>
-                                            <img src="<?= htmlspecialchars($r['image_url']) ?>" class="card-img-top h-100" style="object-fit: cover;">
+                                            <div style="height: 80%;" class="card-image-container">
+                                                <img src="<?= htmlspecialchars($r['image_url']) ?>"
+                                                    class="card-img-top h-100 w-100 grub-card-img"
+                                                    style="object-fit: cover; transition: transform 0.3s ease;">
+                                            </div>
                                         <?php endif; ?>
-                                        <div class="mx-auto my-2">
-                                            <h5 class="card-title"><?= htmlspecialchars($r['restaurant_name']) ?></h5>
-                                            <button type="submit" class="btn btn-sm btn-green rounded-pill text-center">Edit</button>
+                                        <div class="card-body d-flex flex-column justify-content-between p-3">
+                                            <h5 class="card-title text-center mb-3"><?= htmlspecialchars($r['restaurant_name']) ?></h5>
+                                            <button type="submit" class="btn btn-green rounded-pill w-100">Edit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -144,76 +152,147 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <?php if (!empty($restaurant)): ?>
-                    <div class="mt-5 pt-4 border-top">
-                        <h3 class="mb-4">Editing: <?= htmlspecialchars($restaurant['restaurant_name']) ?></h3>
-                        <form method="POST">
-                            <input type="hidden" name="restaurant_id" value="<?= htmlspecialchars($restaurant['restaurant_id']) ?>">
-                            <div class="mb-3">
-                                <label class="form-label">Restaurant Name</label>
-                                <input type="text" class="form-control" name="restaurant_name" value="<?= htmlspecialchars($restaurant['restaurant_name']) ?>" required>
+
+
+                    <div class="accordion" id="restaurantAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button bg-green" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneRestaurant" aria-expanded="true" aria-controls="collapseOneRestaurant">
+                                    <h2 class="text-white my-auto">Restaurant Details</h2>
+                                </button>
+                            </h2>
+                            <div id="collapseOneRestaurant" class="accordion-collapse collapse show" data-bs-parent="#restaurantAccordion">
+                                <div class="p-5">
+                                    <?php if ($success_message): ?>
+                                        <div class="alert alert-success col-12 mt-3 mx-auto"><?= htmlspecialchars($success_message) ?></div>
+                                    <?php endif; ?>
+
+                                    <?php if ($error_message): ?>
+                                        <div class="alert alert-danger col-12 mt-3 mx-auto"><?= htmlspecialchars($error_message) ?></div>
+                                    <?php endif; ?>
+
+                                    <h3 class="mb-4">Editing: <?= htmlspecialchars($restaurant['restaurant_name']) ?></h3>
+
+                                    <form method="POST">
+                                        <input type="hidden" name="restaurant_id" value="<?= htmlspecialchars($restaurant['restaurant_id']) ?>">
+                                        <div class="mb-3">
+                                            <label class="form-label">Restaurant Name</label>
+                                            <input type="text" class="form-control" name="restaurant_name" value="<?= htmlspecialchars($restaurant['restaurant_name']) ?>" required>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Address</label>
+                                            <input type="text" class="form-control" name="address" value="<?= htmlspecialchars($restaurant['address']) ?>" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Opening Hours</label>
+                                            <div class="d-flex justify-content-between align-items-center gap-5 fs-5">
+                                                <input type="time" class="form-control" name="open_time" value="<?= htmlspecialchars($restaurant['open_time']) ?>" required>
+                                                to
+                                                <input type="time" class="form-control" name="close_time" value="<?= htmlspecialchars($restaurant['close_time']) ?>" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Phone Number</label>
+                                            <input type="text" class="form-control" name="phone_number" value="<?= htmlspecialchars($restaurant['phone_number']) ?>" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Rating</label>
+                                            <input type="number" class="form-control" name="rating" step="0.05" min="0" max="5" value="<?= htmlspecialchars($restaurant['rating']) ?>" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Image URL</label>
+                                            <input type="url" class="form-control" name="image_url" value="<?= htmlspecialchars($restaurant['image_url']) ?>" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Price Range</label>
+                                            <select class="form-select" name="price_range" required>
+                                                <option value="LOW" <?= htmlspecialchars($restaurant['price_range']) == 'LOW' ? 'selected' : '' ?>>$</option>
+                                                <option value="MEDIUM" <?= htmlspecialchars($restaurant['price_range']) == 'MEDIUM' ? 'selected' : '' ?>>$$</option>
+                                                <option value="HIGH" <?= htmlspecialchars($restaurant['price_range']) == 'HIGH' ? 'selected' : '' ?>>$$$</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Restaurant Description (optional)</label>
+                                            <input type="text" class="form-control" value="<?= htmlspecialchars($restaurant['description']) ?>" name="description" placeholder="No Description Available">
+                                        </div>
+                                        <button type="submit" name="submit" class="btn btn-lg btn-green rounded-pill mt-3">Update Restaurant</button>
+                                    </form>
+                                </div>
+
+
+
+
+
+
+
                             </div>
 
 
-                            <div class="mb-3">
-                                <label class="form-label">Address</label>
-                                <input type="text" class="form-control" name="address" value="<?= htmlspecialchars($restaurant['address']) ?>" required>
-                            </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Opening Hours</label>
-                                <div class="d-flex justify-content-between align-items-center gap-5 fs-5">
-                                    <input type="time" class="form-control" name="open_time" value="<?= htmlspecialchars($restaurant['open_time']) ?>" required>
-                                    to
-                                    <input type="time" class="form-control" name="close_time" value="<?= htmlspecialchars($restaurant['close_time']) ?>" required>
+                            <div class="accordion" id="dishAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button bg-green" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneDish" aria-expanded="true" aria-controls="collapseOneDish">
+                                            <h2 class="text-white my-auto">Edit Restaurant's Dishes</h2>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOneDish" class="accordion-collapse collapse show d-flex flex-wrap" data-bs-parent="#dishAccordion">
+
+                                        <?php
+                                        $sql = "SELECT * FROM dishes WHERE restaurant_id = $id";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($dish = $result->fetch_assoc()) {
+                                                $id          = htmlspecialchars($dish['dish_id']);
+                                                $name        = htmlspecialchars($dish['dish_name']);
+                                                $price       = htmlspecialchars($dish['unit_price']);
+                                                $description = htmlspecialchars($dish['dish_description']);
+                                                $image_url   = htmlspecialchars($dish['image_url']);
+                                        ?>
+
+                                                <div class="col-4 my-5 px-5">
+                                                    <a href="edit_dish.php?id=<?= $id ?>" style="text-decoration: none">
+
+                                                        <div class="shadow-lg card grub-card">
+                                                            <img src="<?= $image_url ?>" class="grub-card-img" style="height: 300px;" alt="<?= $name ?>">
+                                                            <div class="card-body d-flex flex-column flex-grow-1">
+                                                                <h5 class="card-title mb-0 text-center"><?= $name ?></h5>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                        <?php
+                                            }
+                                        } else {
+                                            echo '<div class="col-10 mx-auto my-5 py-5 text-white text-center rounded-pill bg-green shadow-lg"><h1>No dishes found!</h1></div>';
+                                        }
+                                        $conn->close();
+                                        ?>
+
+                                    </div>
                                 </div>
                             </div>
+                        </div>
 
-
-                            <div class="mb-3">
-                                <label class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" name="phone_number" value="<?= htmlspecialchars($restaurant['phone_number']) ?>" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Rating</label>
-                                <input type="number" class="form-control" name="rating" step="0.05" min="0" max="5" value="<?= htmlspecialchars($restaurant['rating']) ?>" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Image URL</label>
-                                <input type="url" class="form-control" name="image_url" value="<?= htmlspecialchars($restaurant['image_url']) ?>" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Price Range</label>
-                                <select class="form-select" name="price_range" required>
-                                    <option value="LOW" <?= htmlspecialchars($restaurant['price_range']) == 'LOW' ? 'selected' : '' ?>>$</option>
-                                    <option value="MEDIUM" <?= htmlspecialchars($restaurant['price_range']) == 'MEDIUM' ? 'selected' : '' ?>>$$</option>
-                                    <option value="HIGH" <?= htmlspecialchars($restaurant['price_range']) == 'HIGH' ? 'selected' : '' ?>>$$$</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Restaurant Description (optional)</label>
-                                <input type="text" class="form-control" value="<?= htmlspecialchars($restaurant['description']) ?>" name="description" placeholder="No Description Available">
-                            </div>
-                            <button type="submit" name="submit" class="btn btn-lg btn-green rounded-pill mt-3">Update Restaurant</button>
-                        </form>
                     </div>
+
                 <?php endif; ?>
+
             </div>
 
-            <?php if ($success_message): ?>
-                <div class="alert alert-success col-6 mt-3 mx-auto"><?= htmlspecialchars($success_message) ?></div>
-            <?php endif; ?>
 
-            <?php if ($error_message): ?>
-                <div class="alert alert-danger col-6 mt-3 mx-auto"><?= htmlspecialchars($error_message) ?></div>
-            <?php endif; ?>
-        </div>
 
-        <?php
+            <?php
 
-        include 'util/footer.php';
+            include 'util/footer.php';
 
-        ?>
+            ?>

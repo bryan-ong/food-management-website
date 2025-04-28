@@ -56,7 +56,7 @@ html, body {
     overflow-x: hidden;
     overflow-y: auto;
     background-color: gainsboro;
-    z-index: -10;
+    z-index: -1;
 }
 
 .shadow-xlg {
@@ -73,22 +73,46 @@ html, body {
     width: 100vw;
 }
 
-.restaurant-img {
+.grub-card-img {
     filter: brightness(0.75);
     object-fit: cover;
-    height: 30vh;
-    border-radius: 20px;
-}
-
-.restaurant-card {
+    height: 40vh;
     border-radius: 20px;
     transition: all 0.3s ease;
 }
 
-.restaurant-card:hover {
-    transform: scale(1.05);
+.card-image-container {
+    overflow: hidden;
+    border-radius: 20px;
 }
 
+.grub-card {
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    outline: 4px solid var(--grab-green);
+    outline-offset: -1px;
+}
+
+.grub-card:hover {
+    transform: scale(1.025);
+}
+
+.grub-card-img:hover {
+    transform: scale(1.25);
+}
+
+.grub-card:hover .grub-card-img {
+    filter: brightness(1);
+}
+
+.form-control:focus {
+    border-color: var(--grab-green);
+    box-shadow: 0 0 0 0.25rem rgba(8, 170, 76, 0.25);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--grab-green);
+}
 
 .btn-light {
     background-color: white;
@@ -149,22 +173,15 @@ html, body {
     position: relative;
     object-fit: cover;
     pointer-events: none;
-    z-index: -10;
-}
-
-.restaurant-image-banner {
-    position: relative;
-    object-fit: cover;
-    pointer-events: none;
-    z-index: 1;
+    z-index: -1;
 }
 
 .restaurant-banner {
-    position: absolute;
+    position: relative;
     object-fit: cover;
     object-position: center;
     pointer-events: none;
-    z-index: -1;
+    z-index: 0;
     filter: blur(5px) brightness(0.75);
     height: 40vh;
     left: 50%;

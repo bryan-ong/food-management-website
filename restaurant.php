@@ -36,12 +36,17 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
     <?php include "util/navbar.php"; ?>
 
 
-    <div class="restaurant-image-banner">
-        <img src="<?= htmlspecialchars($restaurant['image_url']) ?>" class="restaurant-banner" alt="<?= htmlspecialchars($restaurant['restaurant_name']) ?>">
-    </div>
+    <div class="position-relative">
+        <img src="<?= htmlspecialchars($restaurant['image_url']) ?>"
+            class="restaurant-banner w-100"
+            alt="<?= htmlspecialchars($restaurant['restaurant_name']) ?>"
+            style="height: 300px; object-fit: cover;">
 
-    <div class="px-5 fw-bold" style="padding-top: 20vh; color: white">
-        <h1 style="font-size: max(7.5vw, 56px); z-index: 10;"><?= $restaurant_name ?></h1>
+        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center px-5">
+            <h1 class="text-white fw-bold m-0" style="font-size: max(7.5vw, 56px); text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                <?= htmlspecialchars($restaurant['restaurant_name']) ?>
+            </h1>
+        </div>
     </div>
 
     <?php

@@ -50,15 +50,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     <?php include 'util/navbar.php'; ?>
 
-    <div class="mx-auto text-center flex-grow py-3 bg-green shadow-lg">
-        <h1 class="mx-5 my-5 text-white">Add a Dish<h1>
+
+    <div class="d-flex py-5 mb-5 justify-content-center align-items-center bg-green shadow-xlg">
+        <div class="text-white text-center fs-1 w-100 fw-semibold">
+            Add a Dish
+        </div>
     </div>
+
+    <?php if ($success_message): ?>
+        <div class="alert alert-success col-6 mt-3 mx-auto"><?= htmlspecialchars($success_message) ?></div>
+    <?php endif; ?>
+
+    <?php if ($error_message): ?>
+        <div class="alert alert-danger col-6 mt-3 mx-auto"><?= htmlspecialchars($error_message) ?></div>
+    <?php endif; ?>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
 
-                <a href="admin.php" class="text-decoration-none" style="color: var(--grab-green)"><h2 class="mb-5">< Back to Dashboard</h2></a>
+                <a href="admin.php" class="text-decoration-none mb-5 btn btn-green rounded-pill">
+                    <h3 class="my-auto align-items-center">Back to Dashboard</h3>
+                </a>
 
                 <form method="POST">
                     <div class="mb-3">
@@ -103,13 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             </div>
         </div>
 
-        <?php if ($success_message): ?>
-            <div class="alert alert-success col-6 mt-3 mx-auto"><?= htmlspecialchars($success_message) ?></div>
-        <?php endif; ?>
 
-        <?php if ($error_message): ?>
-            <div class="alert alert-danger col-6 mt-3 mx-auto"><?= htmlspecialchars($error_message) ?></div>
-        <?php endif; ?>
     </div>
 
 

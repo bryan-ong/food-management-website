@@ -18,7 +18,7 @@ require_once 'db_connect.php';
     <?php include "util/navbar.php"; ?>
 
 
-    <div class="d-flex justify-content-center flex-wrap mt-5 col-12 px-3 mx-auto">
+    <div class="d-flex justify-content-center flex-wrap mt-5 col-12 px-3 mx-auto gap-3">
         <?php
         $sql = "SELECT * FROM restaurants";
         $result = $conn -> query($sql);
@@ -51,15 +51,16 @@ require_once 'db_connect.php';
 
         ?>
 
-                <div class="col-12 col-md-3 gap-5 mb-5 px-2">
+                <div class="col-12 col-md-6 col-lg-3 mb-3 px-2">
                     <a href="restaurant.php?id=<?= $id ?>" style="text-decoration: none">
 
-                        <div class="shadow-lg card restaurant-card">
-
-                            <img src="<?= $image_url ?>" class="restaurant-img" alt="<?= $restaurant_name ?>">
+                        <div class="shadow-lg card grub-card">
+                            <div class="card-image-container">
+                                <img src="<?= $image_url ?>" class="grub-card-img w-100" alt="<?= $restaurant_name ?>">
+                            </div>
                             <div class="card-body d-flex flex-column flex-grow-1">
                                 <h3 class="card-title mb-3"><?= $restaurant_name ?></h3>
-                                <p class="lh-sm"><?= $address ?></p>
+                                <p class="lh-sm" style="height: 80px"><?= $address ?></p>
                                 <div class="d-flex justify-content-between" style="font-size: 80%">
                                     <p>
                                         <b><?= date('h:i A', strtotime($open_time)) ?></b>
@@ -68,8 +69,8 @@ require_once 'db_connect.php';
                                     </p>
                                     <p>⭐ <b><?= $rating ?></b></p>
                                 </div>
-                                <p class="card-text"><?= $description ?></p>
-                                <p class="card-text"><?= $price ?></p>
+                                <p class="card-text" style="height: 60px"><?= $description ?></p>
+                                <p class="card-text"><b><?= $price ?></b></p>
                             </div>
                         </div>
                     </a>

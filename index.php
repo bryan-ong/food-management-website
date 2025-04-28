@@ -17,7 +17,7 @@ require_once 'db_connect.php';
 
     <?php include "util/navbar.php"; ?>
 
-    <div class="image-container">
+    <div class="image-container" style="z-index: 1;">
         <img src="assets/bg2.png" class="background-img">
         <img src="assets/dish1.png" class="slide-up dish1" style="--delay: 0.2s">
         <img src="assets/dish2.png" class="slide-up dish2" style="--delay: 0.6s">
@@ -28,12 +28,12 @@ require_once 'db_connect.php';
 
     <div>
         <div class="position-fixed top-50 start-0 end-0 d-flex py-5 justify-content-center align-items-center bg-green shadow-xlg"
-            style="transform: translateY(-50%); z-index: -5">
+            style="transform: translateY(-50%); z-index: 2;">
             <div class="text-white text-center fs-1 w-100 slide-up fw-semibold" style="--delay: 1.2s;">
                 The best meals. Anytime, anywhere.
             </div>
         </div>
-        <div class="position-fixed top-50 d-none start-0 end-0 d-xl-flex justify-content-between px-4" style="transform: translateY(-50%); pointer-events: auto;">
+        <div class="position-fixed top-50 d-none start-0 end-0 d-xl-flex justify-content-between px-4" style="transform: translateY(-50%); pointer-events: auto; z-index: 3;">
             <div style="width: 33%">
                 <button class="btn btn-light btn-lg rounded-pill shadow px-4 py-2 mx-auto d-block" style="min-width: 120px;">
                     Order Now
