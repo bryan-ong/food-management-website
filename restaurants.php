@@ -15,7 +15,6 @@ require_once 'db_connect.php';
 
 
 <body>
-
     <?php include "util/navbar.php"; ?>
 
 

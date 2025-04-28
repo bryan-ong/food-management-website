@@ -36,12 +36,12 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
     <?php include "util/navbar.php"; ?>
 
 
-    <div class="image-container">
+    <div class="restaurant-image-banner">
         <img src="<?= htmlspecialchars($restaurant['image_url']) ?>" class="restaurant-banner" alt="<?= htmlspecialchars($restaurant['restaurant_name']) ?>">
     </div>
 
     <div class="px-5 fw-bold" style="padding-top: 20vh; color: white">
-        <h1 style="font-size: max(7.5vw, 56px)"><?= $restaurant_name ?></h1>
+        <h1 style="font-size: max(7.5vw, 56px); z-index: 10;"><?= $restaurant_name ?></h1>
     </div>
 
     <?php
@@ -50,11 +50,11 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
     if ($result->num_rows > 0) {
         echo '<div class="d-flex mx-auto flex-wrap my-5 rounded shadow-lg bg-green col-12 col-lg-10">';
         while ($dish = $result->fetch_assoc()) {
-            $id = htmlspecialchars($dish['dish_id']);
-            $name = htmlspecialchars($dish['dish_name']);
-            $price = htmlspecialchars($dish['unit_price']);
+            $id          = htmlspecialchars($dish['dish_id']);
+            $name        = htmlspecialchars($dish['dish_name']);
+            $price       = htmlspecialchars($dish['unit_price']);
             $description = htmlspecialchars($dish['dish_description']);
-            $image_url = htmlspecialchars($dish['image_url']);
+            $image_url   = htmlspecialchars($dish['image_url']);
     ?>
 
             <div class="col-12 col-md-6 col-xl-4 gap-5 my-5 px-5">

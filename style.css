@@ -8,6 +8,10 @@
     background-color: var(--grab-green)
 }
 
+.text-green {
+    color: var(--grab-green)
+}
+
 .nav-item, .dropdown-item {
 /*    Semibold is 600, if bold is needed just use 'bold'*/
     font-weight: 600;
@@ -51,6 +55,8 @@ html, body {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    background-color: gainsboro;
+    z-index: -10;
 }
 
 .shadow-xlg {
@@ -144,6 +150,13 @@ html, body {
     object-fit: cover;
     pointer-events: none;
     z-index: -10;
+}
+
+.restaurant-image-banner {
+    position: relative;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .restaurant-banner {

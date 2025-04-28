@@ -6,14 +6,14 @@ $error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $restaurant_name = $_POST['restaurant_name'] ?? '';
-    $address = $_POST['address'] ?? '';
-    $phone_number = $_POST['phone_number'] ?? '';
-    $image_url = $_POST['image_url'] ?? '';
-    $open_time = $_POST['open_time'] ?? '';
-    $close_time = $_POST['close_time'] ?? '';
-    $rating = (float)($_POST['rating'] ?? 0);
-    $price_range = $_POST['price_range'] ?? '';
-    $description = $_POST['description'] ?? '';
+    $address         = $_POST['address'] ?? '';
+    $phone_number    = $_POST['phone_number'] ?? '';
+    $image_url       = $_POST['image_url'] ?? '';
+    $open_time       = $_POST['open_time'] ?? '';
+    $close_time      = $_POST['close_time'] ?? '';
+    $rating          = (float)($_POST['rating'] ?? 0);
+    $price_range     = $_POST['price_range'] ?? '';
+    $description     = $_POST['description'] ?? '';
 
     $sql = "INSERT INTO restaurants (restaurant_name, address, phone_number, image_url, open_time, close_time, rating, price_range, description) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -53,10 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         <h1 class="mx-5 my-5 text-white">Add a Restaurant<h1>
     </div>
 
+    
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-
+                
+                <a href="admin.php" class="text-decoration-none" style="color: var(--grab-green)"><h2 class="mb-5">< Back to Dashboard</h2></a>
+                
                 <form method="POST">
                     <div class="mb-3">
                         <label class="form-label">Restaurant Name</label>

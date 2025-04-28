@@ -5,11 +5,11 @@ $success_message = '';
 $error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    $dish_name = $_POST['dish_name'] ?? '';
-    $unit_price = (float)($_POST['unit_price'] ?? 0);
-    $dish_description = $_POST['dish_description'] ?? '';
-    $restaurant_id = (int)($_POST['restaurant_id'] ?? 0);
-    $image_url = $_POST['image_url'] ?? '';
+    $dish_name          = $_POST['dish_name'] ?? '';
+    $unit_price         = (float)($_POST['unit_price'] ?? 0);
+    $dish_description   = $_POST['dish_description'] ?? '';
+    $restaurant_id      = (int)($_POST['restaurant_id'] ?? 0);
+    $image_url          = $_POST['image_url'] ?? '';
 
     if (empty($dish_name) || empty($restaurant_id)) {
         $error_message = "Please fill all required fields";
@@ -58,6 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         <div class="row justify-content-center">
             <div class="col-md-6">
 
+                <a href="admin.php" class="text-decoration-none" style="color: var(--grab-green)"><h2 class="mb-5">< Back to Dashboard</h2></a>
+
                 <form method="POST">
                     <div class="mb-3">
                         <label class="form-label">Product Name</label>
@@ -84,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                             if ($result->num_rows > 0) {
                                 while ($restaurant = $result->fetch_assoc()) {
                                     echo "<option value='" . htmlspecialchars($restaurant['restaurant_id']) . "'>"
-                                        . htmlspecialchars($restaurant['name']) . "</option>";
+                                        . htmlspecialchars($restaurant['restaurant_name']) . "</option>";
                                 }
                             }
                             ?>
@@ -96,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                         <input type="url" class="form-control" name="image_url" required>
                     </div>
 
-                    <button type="submit" name="submit" class="btn btn-lg btn-green rounded-pill mt-3">Add Product</button>
+                    <button type="submit" name="submit" class="btn btn-lg btn-green rounded-pill mt-3">Add Dish</button>
                 </form>
             </div>
         </div>
