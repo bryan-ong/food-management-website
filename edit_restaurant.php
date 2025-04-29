@@ -109,10 +109,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'util/navbar.php'; ?>
 
     <div class="d-flex py-5 mb-5 justify-content-center align-items-center bg-green shadow-xlg">
-            <div class="text-white text-center fs-1 w-100 fw-semibold">
-                Edit Restaurant and Dishes
-            </div>
+        <div class="text-white text-center fs-1 w-100 fw-semibold">
+            Edit Restaurant and Dishes
         </div>
+    </div>
 
 
 
