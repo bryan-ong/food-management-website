@@ -61,10 +61,6 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
             $first = false;
             echo json_encode([
                 'id' => $dish['dish_id'],
-                'name' => $dish['dish_name'],
-                'price' => $dish['unit_price'],
-                'description' => $dish['dish_description'],
-                'image' => $dish['image_url']
             ]);
         }
     }

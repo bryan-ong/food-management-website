@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-lg">
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-lg" style="z-index: 1;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img

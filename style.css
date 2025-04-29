@@ -26,6 +26,12 @@
     color: var(--grab-green) !important;
 }
 
+.cart-image {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover;
+}
+
 .dish-1 {
     animation: dish-1 0.5s forwards
 }
