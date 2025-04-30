@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-lg" style="z-index: 1;">
+<nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary shadow-lg" style="z-index: 1;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index.php">
             <img
                 src="assets/logo.png"
                 width="100"
@@ -8,7 +8,22 @@
                 loading="lazy" />
         </a>
 
-        <li class="nav-item d-block d-lg-none ms-auto me-4">
+        <div class="d-flex flex-row ms-auto align-items-center d-lg-none my-auto gap-3 me-3">
+
+            <svg class="bg-white rounded-circle"  id="switch-theme-btn" width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" stroke="#000000">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier"> <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                    <title>ic_fluent_dark_theme_24_regdivar</title>
+                    <desc>Created with Sketch.</desc>
+                    <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="ic_fluent_dark_theme_24_regular" fill="#212121" fill-rule="nonzero">
+                            <path d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z" id="🎨-Color"> </path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+
             <a href="cart.php">
                 <svg width="24" height="24" fill="#08aa4c" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 902.86 902.86" xml:space="preserve" stroke="#08aa4c">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -23,7 +38,7 @@
                     </g>
                 </svg>
             </a>
-        </li>
+        </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +63,24 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav mw-auto mb-2 mb-lg-0 align-items-center">
+            <ul class="navbar-nav mw-auto mb-2 mb-lg-0 align-items-center gap-3">
+
+                <li class="nav-item d-none d-lg-block" id="switch-theme-btn">
+                    <svg class="bg-white rounded-circle" width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" stroke="#000000">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier"> <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                            <title>ic_fluent_dark_theme_24_regular</title>
+                            <desc>Created with Sketch.</desc>
+                            <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="ic_fluent_dark_theme_24_regular" fill="#212121" fill-rule="nonzero">
+                                    <path d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z" id="🎨-Color"> </path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </li>
+
                 <li class="nav-item d-none d-lg-block">
                     <a href="cart.php">
                         <svg width="24" height="24" fill="var(--grab-green)" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 902.86 902.86" xml:space="preserve" stroke="#08aa4c">

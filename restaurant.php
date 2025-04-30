@@ -23,12 +23,9 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= $restaurant_name ?></title>
     <?php include 'util/header.php'; ?>
 </head>
 

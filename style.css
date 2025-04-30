@@ -4,6 +4,7 @@
     --grab-green: rgb(8,180,76);
 }
 
+
 .bg-green {
     background-color: var(--grab-green)
 }
@@ -27,9 +28,14 @@
 }
 
 .cart-image {
-    width: 100px; 
-    height: 100px; 
+    width: 140px; 
+    height: 140px; 
     object-fit: cover;
+}
+
+.cart-hr {
+    border: 2.5px solid;
+    border-radius: 2px;
 }
 
 .dish-1 {
@@ -54,6 +60,10 @@
     animation-delay: var(--delay);
 }
 
+.navbar {
+    transition: all 0.3s ease;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -61,8 +71,8 @@ html, body {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: gainsboro;
     z-index: -1;
+    transition: all 0.3s ease;
 }
 
 .shadow-xlg {

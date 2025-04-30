@@ -34,13 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 }
 ?>
 
-<!doctype html>
-<html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Dish</title>
     <?php include 'util/header.php'; ?>
 </head>

@@ -5,11 +5,8 @@ require_once 'db_connect.php';
 <!doctype html>
 <html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php include 'util/header.php'; ?>
+<title>My Cart</title>
+<?php include 'util/header.php'; ?>
 </head>
 
 
@@ -39,21 +36,22 @@ require_once 'db_connect.php';
 
     </div>
 
-    <div class="d-flex col-11 mx-auto justify-content-center gap-5 p-5">
-
-        <div class="col-8 p-4 bg-white shadow-lg rounded">
+    <div class="d-flex col-12 col-lg-11 justify-content-center p-0 p-lg-5">
+        <div class="col-12 col-lg-8 p-4 shadow-lg rounded mx-auto">
             <h1 class="">Items</h1>
-            <hr>
+            <hr class="cart-hr">
             <div id="cart-items">
             </div>
 
         </div>
-        <div class="col-4 p-4 bg-white shadow-lg rounded">
-            dwad
-        </div>
-
     </div>
-
+    
+    <div class="col-4 p-4 shadow-lg text-black bg-white rounded position-fixed">
+        <h1>Details</h1>
+        <hr class="cart-hr">
+        <div id="order-details">
+        </div>
+    </div>
 
 
     <?php include 'util/footer.php'; ?>

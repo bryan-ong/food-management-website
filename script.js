@@ -1,4 +1,24 @@
 $(document).ready(function () {
+    //////////////////////////////////////////////////////////////////////////////////
+    // START OF DARK MODE FUNCTIONALITY
+
+    $(document).on("click", "#switch-theme-btn", function () {
+        if ($("html").attr("data-bs-theme") == "dark") {
+            localStorage.setItem('theme', "light")
+            $("html").attr("data-bs-theme", "light");
+        } else {
+            $("html").attr("data-bs-theme", "dark");
+            localStorage.setItem('theme', "dark")
+        }
+    })
+
+    $("html").attr("data-bs-theme", localStorage.getItem("theme"));
+
+    // END OF DARK MODE FUNCTIONALITY
+    //////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    // CART FUNCTIONALITY
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let subTotal = 0;
 
@@ -22,21 +42,21 @@ $(document).ready(function () {
 
     async function renderCart() {
         subTotal = 0
-        
+
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        
-        
+
+
         if (cart.length === 0) {
-            $("#cart-items").text("Cart is Empty")
+            $("#cart-items").append(`<h4>Cart is Empty. <a class="text-decoration-none" href="restaurants.php"><b>Add some Items</b></a>.</h4`)
             return;
         }
-        
+
         const productPromises = cart.map(item =>
             $.get(`util/get_product_details.php?id=${item.id}`)
         );
-        
-        
-        
+
+
+
         const products = await Promise.all(productPromises);
         $("#cart-items").empty();
 
@@ -53,39 +73,97 @@ $(document).ready(function () {
             const cartItem = $(`
                     <div class="my-3">
                         <div class="d-flex justify-content-between">
+
                             <div class="d-flex align-items-center gap-3">
                                 <img src="${product.image_url}" alt="${product.name}" class="rounded shadow-lg outline cart-image">
                                 <div class="mx-auto">
                                     <h5>${product.name}</h5>
                                     <h6 class="mx-2 my-3">$${product.price}</h6>
-
                                 </div>
                             </div>
+
                             <div class="align-items-center my-auto">
                                 <div class="d-flex align-items-center">
-                                    <button class="btn btn-light cart-increment-btn rounded-pill d-flex justify-content-center align-items-center" 
-                                        style="width: 2rem; height: 2rem;" data-id="${product.id}">
-                                            <b>-</b>
+                                
+                                    <button class="btn rounded-circle cart-remove-btn" data-id="${product.id}">
+                                        <svg viewBox="0 0 24 24" width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff3232"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#ff3232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                                     </button>
-                                    <p class="mx-2 my-0">${quantity}</p>
+
+                                    <button class="btn btn-light cart-increment-btn rounded-pill d-flex justify-content-center align-items-center" 
+                                    style="width: 2rem; height: 2rem;" data-id="${product.id}">
+                                    <b>-</b>
+                                    </button>
+                                    
+                                    <h4 class="mx-2 my-0">${quantity}</h4>
+
                                     <button class="btn btn-light cart-decrement-btn rounded-pill d-flex justify-content-center align-items-center" 
-                                        style="width: 2rem; height: 2rem;" data-id="${product.id}">
-                                            <b>+</b>
+                                    style="width: 2rem; height: 2rem;" data-id="${product.id}">
+                                    <b>+</b>
                                     </button>
                                 </div>
                             </div>
+
                         </div>
-                        <hr>
-                        </div>
-                        <div class="d-flex">
-                            <p class="ms-auto me-2"><b>Item Total</b>: $${itemTotal.toFixed(2)}</p>
-                        </div>
-                    `)
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <h5 class="ms-auto me-2"><b>Item Total</b>: $${itemTotal.toFixed(2)}</h5>
+                    </div>
+
+                    <hr class="cart-hr">
+                `)
 
 
 
             $("#cart-items").append(cartItem);
+
         });
+
+        // Receipt
+        $("#order-details").empty();
+        const subTotalDisplay = $(`
+            <div class="d-flex justify-content-between">
+                <h5>Subtotal</h5>
+                <h5>$${subTotal.toFixed(2)}</h5>
+            </div>
+        `)
+
+        $("#order-details").append(subTotalDisplay)
+
+        const serviceTaxPercent = 0.06
+        let serviceTax = subTotal * serviceTaxPercent;
+
+        const serviceTaxDisplay = $(`
+            <div class="d-flex justify-content-between">
+                <h5>Service Tax (${serviceTaxPercent * 100}%)</h5>
+                <h5>$${serviceTax.toFixed(2)}</h5>
+            </div>
+        `)
+
+        $("#order-details").append(serviceTaxDisplay)
+
+        const salesTaxPercent = 0.08
+        let salesTax = subTotal * salesTaxPercent;
+
+        const salesTaxDisplay = $(`
+            <div class="d-flex justify-content-between">
+                <h5>Sales Tax (${salesTaxPercent * 100}%)</h5>
+                <h5>$${salesTax.toFixed(2)}</h5>
+            </div>
+        `)
+
+        $("#order-details").append(salesTaxDisplay)
+
+        const grandTotalDisplay = $(`
+            <hr class="cart-hr">
+            <div class="d-flex justify-content-between">
+                <h5>Grand Total</h5>
+                <h5>$${(salesTax + serviceTax + subTotal).toFixed(2)}</h5>
+            </div>
+        `)
+
+        $("#order-details").append(grandTotalDisplay)
+
     }
 
     renderCart();
@@ -99,23 +177,42 @@ $(document).ready(function () {
         editItem(productId, -1);
     });
 
+    $(document).on('click', '.cart-remove-btn', function () {
+        const productId = $(this).data('id');
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const item = cart.find(item => item.id == productId);
+        if (item) {
+            // console.log(item)
+            cart.splice(cart.indexOf(item), 1);
+            localStorage.setItem("cart", JSON.stringify(cart))
+        }
+
+        renderCart();
+    });
+
 
     function editItem(productId, amount) {
 
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         const item = cart.find(item => item.id == productId);
 
+
         if (item) {
-            item.quantity = Math.max(1, item.quantity - amount);
+            item.quantity -= amount;
+            if (item.quantity <= 0) {
+                cart.splice(cart.indexOf(item), 1)
+            }
             localStorage.setItem("cart", JSON.stringify(cart))
             renderCart()
         }
+        console.log(item)
     }
 
-    function showAlert(message) {
-        const toast = $(".alert").text(message).append("body")
 
-        $(toast).fadeIn().delay(2000).fadeOut().remove();
-    }
+
+    // END OF CART FUNCTIONALITY
+    //////////////////////////////////////////////////////////////////////////////////
+
 
 })

@@ -62,13 +62,6 @@ $dish_description = htmlspecialchars($dish['dish_description']);
 $image_url        = htmlspecialchars($dish['image_url']);
 ?>
 
-<!doctype html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include 'util/header.php'; ?>
 </head>
 
