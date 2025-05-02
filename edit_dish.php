@@ -1,5 +1,5 @@
 <?php
-require 'db_connect.php';
+require 'util/db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $dish_id = filter_input(INPUT_POST, 'dish_id');
@@ -62,11 +62,11 @@ $dish_description = htmlspecialchars($dish['dish_description']);
 $image_url        = htmlspecialchars($dish['image_url']);
 ?>
 
-    <?php include 'util/header.php'; ?>
+    <?php include 'header.php'; ?>
 </head>
 
 <body>
-    <?php include "util/navbar.php"; ?>
+    <?php include "navbar.php"; ?>
 
 
     <div class="position-relative">
@@ -137,7 +137,5 @@ $image_url        = htmlspecialchars($dish['image_url']);
 
 
     <?php
-    $conn->close();
-
-    include 'util/footer.php';
+    include 'footer.php';
     ?>

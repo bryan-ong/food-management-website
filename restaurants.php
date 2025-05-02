@@ -1,14 +1,14 @@
 <?php
-require_once 'db_connect.php';
+require_once 'util/db_connect.php';
 ?>
 
-    <?php include 'util/header.php'; ?>
+    <?php include 'header.php'; ?>
 </head>
 
 
 
 <body>
-    <?php include "util/navbar.php"; ?>
+    <?php include "navbar.php"; ?>
 
 
     <div class="d-flex justify-content-center flex-wrap mt-5 col-12 px-3 mx-auto gap-3">
@@ -54,15 +54,15 @@ require_once 'db_connect.php';
                             <div class="card-body d-flex flex-column flex-grow-1">
                                 <h3 class="card-title mb-3"><?= $restaurant_name ?></h3>
                                 <p class="lh-sm" style="height: 80px"><?= $address ?></p>
-                                <div class="d-flex justify-content-between" style="font-size: 80%">
+                                <div class="d-flex justify-content-between text-muted" style="font-size: 80%">
                                     <p>
                                         <b><?= date('h:i A', strtotime($open_time)) ?></b>
-                                        to
+                                        -
                                         <b><?= date('h:i A', strtotime($close_time)) ?></b>
                                     </p>
                                     <p>⭐ <b><?= $rating ?></b></p>
                                 </div>
-                                <p class="card-text" style="height: 60px"><?= $description ?></p>
+                                <p class="card-text" style="height: 60px; font-style: italic;">"<?= $description ?>"</p>
                                 <p class="card-text"><b><?= $price ?></b></p>
                             </div>
                         </div>
@@ -73,9 +73,8 @@ require_once 'db_connect.php';
         } else {
             echo '<div class="col-12"><p>No restaurants found</p></div>';
         }
-        $conn->close();
         ?>
     </div>
 
     </div>
-    <?php include 'util/footer.php'; ?>
+    <?php include 'footer.php'; ?>

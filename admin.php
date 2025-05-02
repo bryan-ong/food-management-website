@@ -1,20 +1,26 @@
 <?php
-require_once 'db_connect.php';
+include 'util/db_connect.php';
+// start session so we know who’s here
+if (session_status() === PHP_SESSION_NONE) session_start();
+// if you’re not an admin, bounce out
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'ADMIN') {
+    header('Location: index.php');
+    exit;
+}
 ?>
 
-
-    <?php include 'util/header.php'; ?>
+<?php include 'header.php'; ?>
 </head>
 
 
 <body>
 
-    <?php include 'util/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
     <div>
         <div class="d-flex py-5 mb-5 justify-content-center align-items-center bg-green shadow-xlg">
             <div class="text-white text-center fs-1 w-100 fw-semibold">
-                Welcome, Admin.
+                Welcome, <?= htmlspecialchars($_SESSION['username']) ?>
             </div>
         </div>
 
@@ -36,4 +42,4 @@ require_once 'db_connect.php';
 
 
 
-    <?php include 'util/footer.php'; ?>
+    <?php include 'footer.php'; ?>

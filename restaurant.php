@@ -1,5 +1,5 @@
 <?php
-require 'db_connect.php';
+require 'util/db_connect.php';
 
 $restaurant_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
@@ -26,11 +26,11 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
 <html lang="en" data-bs-theme="dark">
 
     <title><?= $restaurant_name ?></title>
-    <?php include 'util/header.php'; ?>
+    <?php include 'header.php'; ?>
 </head>
 
 <body>
-    <?php include "util/navbar.php"; ?>
+    <?php include "navbar.php"; ?>
 
 
     <div class="position-relative">
@@ -96,7 +96,6 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
     } else {
         echo '<div class="col-10 mx-auto my-5 py-5 text-white text-center rounded-pill bg-green shadow-lg"><h1>No dishes found!</h1></div>';
     }
-    $conn->close();
     ?>
 
-    <?php include 'util/footer.php'; ?>
+    <?php include 'footer.php'; ?>

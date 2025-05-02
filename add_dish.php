@@ -1,5 +1,5 @@
 <?php
-include 'db_connect.php';
+include 'util/db_connect.php';
 
 $success_message = '';
 $error_message = '';
@@ -36,13 +36,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
 
     <title>Add Dish</title>
-    <?php include 'util/header.php'; ?>
+    <?php include 'header.php'; ?>
 </head>
 
 
 <body>
 
-    <?php include 'util/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
 
     <div class="d-flex py-5 mb-5 justify-content-center align-items-center bg-green shadow-xlg">
@@ -115,10 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
 
     <?php
-    include 'util/footer.php';
-
-    if (isset($conn)) {
-        $conn->close();
-    }
+    include 'footer.php';
 
     ?>

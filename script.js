@@ -21,10 +21,16 @@ $(document).ready(function () {
     // CART FUNCTIONALITY
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let subTotal = 0;
+    let grandTotal = 0;
 
     $(document).on('click', '.add-to-cart-btn', function () {
         const productId = $(this).data('productId');
         addToCart(productId);
+        $(this).text("Added to Cart");
+
+        setTimeout(() => {
+            $(this).text("Add to Cart");
+        }, 500);
     });
 
     function addToCart(productId) {
@@ -55,8 +61,6 @@ $(document).ready(function () {
             $.get(`util/get_product_details.php?id=${item.id}`)
         );
 
-
-
         const products = await Promise.all(productPromises);
         $("#cart-items").empty();
 
@@ -71,49 +75,47 @@ $(document).ready(function () {
             subTotal += itemTotal
 
             const cartItem = $(`
-                    <div class="my-3">
-                        <div class="d-flex justify-content-between">
+                <div class="my-3 cart-item">
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
 
-                            <div class="d-flex align-items-center gap-3">
-                                <img src="${product.image_url}" alt="${product.name}" class="rounded shadow-lg outline cart-image">
-                                <div class="mx-auto">
-                                    <h5>${product.name}</h5>
-                                    <h6 class="mx-2 my-3">$${product.price}</h6>
-                                </div>
+                    <div class="d-flex align-items-center gap-3 mb-3 mb-md-0">
+                            <img src="${product.image_url}" alt="${product.name}" class="rounded shadow-lg outline cart-image">
+                            <div class="me-auto">
+                                <h5>${product.name}</h5>
+                                <h6 class="mx-2 my-3">$${product.price}</h6>
                             </div>
+                        </div>
+            
 
-                            <div class="align-items-center my-auto">
-                                <div class="d-flex align-items-center">
-                                
-                                    <button class="btn rounded-circle cart-remove-btn" data-id="${product.id}">
-                                        <svg viewBox="0 0 24 24" width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff3232"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#ff3232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                                    </button>
+                        <div class="d-flex align-items-center justify-content-between justify-content-md-end gap-3">
+                            <button class="btn cart-remove-btn rounded-circle" style="width: 48px; height: 48px"data-id="${product.id}">
+                                <svg width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff3232"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#ff3232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                            </button>
+            
 
-                                    <button class="btn btn-light cart-increment-btn rounded-pill d-flex justify-content-center align-items-center" 
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-light cart-increment-btn rounded-pill d-flex justify-content-center align-items-center" 
                                     style="width: 2rem; height: 2rem;" data-id="${product.id}">
                                     <b>-</b>
-                                    </button>
-                                    
-                                    <h4 class="mx-2 my-0">${quantity}</h4>
-
-                                    <button class="btn btn-light cart-decrement-btn rounded-pill d-flex justify-content-center align-items-center" 
+                                </button>
+                                
+                                <h4 class="mx-2 my-0">${quantity}</h4>
+            
+                                <button class="btn btn-light cart-decrement-btn rounded-pill d-flex justify-content-center align-items-center" 
                                     style="width: 2rem; height: 2rem;" data-id="${product.id}">
                                     <b>+</b>
-                                    </button>
-                                </div>
+                                </button>
                             </div>
-
                         </div>
                     </div>
-
-                    <div class="d-flex justify-content-between">
+            
+                    <div class="d-flex justify-content-between mt-3">
                         <h5 class="ms-auto me-2"><b>Item Total</b>: $${itemTotal.toFixed(2)}</h5>
                     </div>
-
+            
                     <hr class="cart-hr">
-                `)
-
-
+                </div>
+            `);
 
             $("#cart-items").append(cartItem);
 
@@ -154,19 +156,66 @@ $(document).ready(function () {
 
         $("#order-details").append(salesTaxDisplay)
 
+        grandTotal = salesTax + serviceTax + subTotal;
+
         const grandTotalDisplay = $(`
-            <hr class="cart-hr">
+            <hr style="border-top: 2px dashed black; opacity: 100;">
             <div class="d-flex justify-content-between">
                 <h5>Grand Total</h5>
-                <h5>$${(salesTax + serviceTax + subTotal).toFixed(2)}</h5>
+                <h5>$${(grandTotal).toFixed(2)}</h5>
             </div>
         `)
 
         $("#order-details").append(grandTotalDisplay)
 
+        console.log(cart);
+
     }
 
     renderCart();
+
+    // INSERTING INTO DB
+
+    async function placeOrder() {
+        const data = {
+            grand_total: grandTotal.toFixed(2),
+            cart: JSON.parse(localStorage.getItem("cart")) || []
+        }
+
+        try {
+            const response = await fetch("util/place_order.php", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': "application/json",
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                console.log('Inserted ID:', result.id);
+                localStorage.setItem("cart", JSON.stringify([]));
+                $("#cart-items").empty();
+                $("#place-order-btn").text("Order Placed!");
+                $("#place-order-btn").removeClass("btn btn-lg btn-green");
+                $("#place-order-btn").addClass("alert alert-success fs-3 text-white fw-semibold bg-green");
+                $("#order-details").empty();
+                $("#place-order-container").append(`
+                    <h4 class="text-center"><a href="orders.php" class="text-decoration-none">View my Orders</a></h4>
+                `)
+                renderCart();
+            } else {
+                console.error('Error:', result.error);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    $(document).on('click', '#place-order-btn', function () {
+        placeOrder();
+
+    })
 
     $(document).on('click', '.cart-increment-btn', function () {
         const productId = $(this).data('id');
@@ -183,9 +232,13 @@ $(document).ready(function () {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         const item = cart.find(item => item.id == productId);
         if (item) {
-            // console.log(item)
             cart.splice(cart.indexOf(item), 1);
+            $(this).closest('.cart-item').remove();
             localStorage.setItem("cart", JSON.stringify(cart))
+        }
+
+        if (cart.length == 0) {
+            $("#order-details").remove()
         }
 
         renderCart();

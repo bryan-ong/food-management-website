@@ -1,4 +1,6 @@
-<nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary shadow-lg" style="z-index: 1;">
+<?php require_once 'util/db_connect.php'; ?>
+
+<nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary shadow-lg" style="z-index: 10;">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.php">
             <img
@@ -10,7 +12,7 @@
 
         <div class="d-flex flex-row ms-auto align-items-center d-lg-none my-auto gap-3 me-3">
 
-            <svg class="bg-white rounded-circle"  id="switch-theme-btn" width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" stroke="#000000">
+            <svg class="bg-white rounded-circle" id="switch-theme-btn" width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" stroke="#000000">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier"> <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -53,14 +55,25 @@
                     <a class="nav-link px-3" href="order.php">Find food</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="order.php">Categories</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link px-3" href="restaurants.php">Restaurants</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3" href="order.php">About us</a>
                 </li>
+
+                <?php
+                if (!isset($_SESSION['user_id'])) {
+                    echo '
+                    <hr>
+                <li class="nav-item">
+                    <a class="nav-link d-lg-none px-3 btn btn-green btn-lg rounded-pill shadow px-3 mx-auto col-6 bg-green" href="signup.php">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-lg-none text-center px-3 mx-auto" href="login.php">Login</a>
+                </li>
+                    ';
+                }
+                ?>
             </ul>
 
             <ul class="navbar-nav mw-auto mb-2 mb-lg-0 align-items-center gap-3">
@@ -97,40 +110,67 @@
                         </svg>
                     </a>
                 </li>
-                <li class="nav-item d-none d-lg-block">
-                    <!-- Hide if not logged in -->
-                    <a class="nav-link btn btn-green btn-lg rounded-pill shadow px-3 mx-3 d-block bg-green" aria-current="page" href="#">Sign Up</a>
-                </li>
-                <li class="nav-item d-none d-lg-block">
-                    <!-- Hide if not logged in -->
-                    <a class="nav-link mx-3" aria-current="page" href="#">Login</a>
-                </li>
+
+                <?php
+                if (!isset($_SESSION['user_id'])) {
+                    echo "
+                    <li class='nav-item d-none d-lg-block'>
+                        <!-- Hide if not logged in -->
+                        <a class='nav-link btn btn-green btn-lg rounded-pill shadow px-3 mx-3 d-block bg-green' aria-current='page' href='signup.php'>Sign Up</a>
+                    </li>
+                    <li class='nav-item d-none d-lg-block'>
+                        <!-- Hide if not logged in -->
+                        <a class='nav-link mx-3' aria-current='page' href='login.php'>Login</a>
+                    </li>";
+                }
+                ?>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle  d-flex align-items-center" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img
-                            src="assets/pfp.png"
-                            class="rounded-circle"
-                            height="22"
-                            alt="Generic Profile Picture"
-                            loading="lazy" />
-                        <span class="d-lg-none ms-2">Account</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <!--Somehow hide My Profile if not logged in?-->
-                        <li><a class="dropdown-item" href="#">My Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                    <?php
+                        
+                        include_once "util/user.php";
+                        $user = getUserDetails($conn);
+                        $src = $user['pfp_url'] ?? "assets/pfp.png";
 
-                        <!--We can hide these if already logged in-->
-                        <li class="d-lg-none"><a class="dropdown-item" href="#">Sign Up</a></li>
-                        <li class="d-lg-none"><a class="dropdown-item" href="#">Login</a></li>
-                        <!--If we can, also hide this if not logged in-->
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
+                        echo '
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+        
+                                <img src="' .htmlspecialchars($src). '" 
+                                    class="rounded-circle"
+                                    height="32"
+                                    alt="Generic Profile Picture"
+                                    loading="lazy" />
+                                <span class="d-lg-none ms-2">Account</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
+                                <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
+                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
+                                ';
+
+                                if (isset($_SESSION['user_id'])) {
+                                    echo '
+                                    <hr class="dropdown-divider">
+                                    <li><a class="dropdown-item" href="util/logout.php">Logout</a></li>
+                                    </li>
+                                    ';
+                                }
+
+                                
+                                if (($_SESSION['role'] ?? '') == 'ADMIN') {
+                                    echo '
+                                    <li>
+                                    <a class="dropdown-item" href="admin.php">Dashboard</a>
+                                    </li>
+                                </ul>
+                            ';
+                        }
+
+                    ?>
+                    <!--Somehow hide My Profile if not logged in?-->
+                    <!--We can hide these if already logged in-->
+                    <!--If we can, also hide this if not logged in-->
                 </li>
             </ul>
         </div>

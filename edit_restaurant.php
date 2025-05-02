@@ -1,5 +1,5 @@
 <?php
-include 'db_connect.php';
+include 'util/db_connect.php';
 
 $success_message = '';
 $error_message = '';
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
     <title>Edit Restaurant</title>
-    <?php include 'util/header.php'; ?>
+    <?php include 'header.php'; ?>
 </head>
 
 <script>
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <?php include 'util/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
     <div class="d-flex py-5 mb-5 justify-content-center align-items-center bg-green shadow-xlg">
         <div class="text-white text-center fs-1 w-100 fw-semibold">
@@ -266,7 +266,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         } else {
                                             echo '<div class="col-10 mx-auto my-5 py-5 text-white text-center rounded-pill bg-green shadow-lg"><h1>No dishes found!</h1></div>';
                                         }
-                                        $conn->close();
                                         ?>
 
                                     </div>
@@ -284,6 +283,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <?php
 
-            include 'util/footer.php';
+            include 'footer.php';
 
             ?>

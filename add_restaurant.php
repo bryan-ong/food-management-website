@@ -1,5 +1,5 @@
 <?php
-include 'db_connect.php';
+include 'util/db_connect.php';
 
 $success_message = '';
 $error_message = '';
@@ -35,13 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 ?>
 
     <title>Add Restaurant</title>
-    <?php include 'util/header.php'; ?>
+    <?php include 'header.php'; ?>
 </head>
 
 
 <body>
 
-    <?php include 'util/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
     <div class="d-flex py-5 mb-5 justify-content-center align-items-center bg-green shadow-xlg">
             <div class="text-white text-center fs-1 w-100 fw-semibold">
@@ -125,10 +125,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     <?php
 
-    include 'util/footer.php';
+    include 'footer.php';
 
-    if (isset($conn)) {
-        $conn->close();
-    }
+
 
     ?>

@@ -1,22 +1,22 @@
 <?php
-require_once 'db_connect.php';
+require_once 'util/db_connect.php';
 ?>
 
 <!doctype html>
 <html lang="en">
 
 <title>My Cart</title>
-<?php include 'util/header.php'; ?>
+<?php include 'header.php'; ?>
 </head>
 
 
 <body>
 
-    <?php include 'util/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
     <div class="d-flex py-5 mb-5 justify-content-center align-items-center bg-green shadow-xlg gap-3">
 
-        <li class="nav-item d-lg-block">
+        <div class="nav-item d-block">
             <svg width="48" height="48" fill="white" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 902.86 902.86" xml:space="preserve" stroke="#08aa4c">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -29,29 +29,52 @@ require_once 'db_connect.php';
                     </g>
                 </g>
             </svg>
-        </li>
-        <li class="nav-item d-none d-lg-block text-white">
+        </div>
+        <div class="nav-item d-block text-white">
             <h1>My Cart</h1>
-        </li>
+        </div>
 
     </div>
 
-    <div class="d-flex col-12 col-lg-11 justify-content-center p-0 p-lg-5">
-        <div class="col-12 col-lg-8 p-4 shadow-lg rounded mx-auto">
-            <h1 class="">Items</h1>
-            <hr class="cart-hr">
-            <div id="cart-items">
+    <div class="row g-0 mb-5">
+
+        <div class="col-12 col-lg-8 pe-lg-3">
+            <div class="p-4 ms-lg-5 mx-2 p-lg-5 shadow-lg rounded h-100" id="place-order-container">
+                <h1>Items</h1>
+                <hr class="cart-hr">
+                <div id="cart-items"></div>
+                <div class="d-flex justify-content-center mt-4">
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <button class="btn btn-green btn-lg rounded-pill flex-grow-1 px-5" id="place-order-btn">Place Order</button>
+                        <script>
+                            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+                            console.log(cart)
+                            if (cart.length === 0) {
+                                $("#place-order-btn").hide();
+                            }
+                        </script>
+                    <?php else: ?>
+                        <h2>You must log in to order</h2>
+                    <?php endif; ?>
+                </div>
             </div>
-
         </div>
-    </div>
-    
-    <div class="col-4 p-4 shadow-lg text-black bg-white rounded position-fixed">
-        <h1>Details</h1>
-        <hr class="cart-hr">
-        <div id="order-details">
+
+        <div class="col-12 col-lg-3 ps-lg-3 mt-4 mt-lg-0" style="
+            background-image: url('assets/receipt.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: -1;">
+
+
+            <div class="p-4 mx-2 p-lg-5 h-100 text-black">
+                <h1>Details</h1>
+                <hr style="border-top: 2px dashed black; opacity: 100;">
+                <div id="order-details"></div>
+            </div>
         </div>
+
     </div>
 
-
-    <?php include 'util/footer.php'; ?>
+    <?php include 'footer.php'; ?>
