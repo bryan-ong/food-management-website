@@ -45,7 +45,7 @@ require_once 'util/db_connect.php';
                 <div id="cart-items"></div>
                 <div class="d-flex justify-content-center mt-4">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <button class="btn btn-green btn-lg rounded-pill flex-grow-1 px-5" id="place-order-btn">Place Order</button>
+                        <button class="btn btn-green btn-lg rounded-pill flex-grow-1 px-5" id="place-order-btn" onclick="placeOrder()">Place Order</button>
                         <script>
                             const cart = JSON.parse(localStorage.getItem("cart") || "[]");
                             console.log(cart)

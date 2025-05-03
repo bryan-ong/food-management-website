@@ -7,13 +7,13 @@ $dbname = "grub";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Gotta make a new mysqli as connect_db has some debugging code that I don't want to remove, and it is messing with the AJAX as the JS requires raw jsons
-
+// I removed the debugging code but it's best not to touch this
 if (!isset($_GET['id'])) {
     exit;
 }
 
 $productId = intval($_GET['id']);
-$stmt = $conn->prepare("SELECT dish_id as id, dish_name as name, unit_price as price, image_url, dish_description as description FROM dishes WHERE dish_id = ?");
+$stmt = $conn->prepare("SELECT dish_id as id, dish_name as name, unit_price as price, image_url, cuisine_type, times_ordered, date_added, vegetarian, dish_description as description FROM dishes WHERE dish_id = ?");
 $stmt->bind_param("i", $productId);
 $stmt->execute();
 $result = $stmt->get_result();

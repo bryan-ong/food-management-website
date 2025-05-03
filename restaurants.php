@@ -44,7 +44,7 @@ require_once 'util/db_connect.php';
 
         ?>
 
-                <div class="col-12 col-md-6 col-lg-3 mb-3 px-2">
+                <div class="col-12 col-md-5 col-lg-3 mb-3 px-2">
                     <a href="restaurant.php?id=<?= $id ?>" style="text-decoration: none">
 
                         <div class="shadow-lg card grub-card">

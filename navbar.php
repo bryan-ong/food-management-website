@@ -52,13 +52,13 @@
                     <a class="nav-link px-3" aria-current="page" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="order.php">Find food</a>
+                    <a class="nav-link px-3" href="dishes.php">Find food</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-3" href="restaurants.php">Restaurants</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="order.php">About us</a>
+                    <a class="nav-link px-3" href="about.php">About us</a>
                 </li>
 
                 <?php
@@ -128,14 +128,12 @@
                 <li class="nav-item dropdown">
                     <?php
                         
-                        include_once "util/user.php";
-                        $user = getUserDetails($conn);
+
                         $src = $user['pfp_url'] ?? "assets/pfp.png";
 
-                        echo '
-                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-        
+                                if (isset($_SESSION['user_id'])) {
+                                    echo '
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="' .htmlspecialchars($src). '" 
                                     class="rounded-circle"
                                     height="32"
@@ -143,14 +141,9 @@
                                     loading="lazy" />
                                 <span class="d-lg-none ms-2">Account</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
-                                <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
-                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
-                                ';
-
-                                if (isset($_SESSION['user_id'])) {
-                                    echo '
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
+                                    <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
                                     <hr class="dropdown-divider">
                                     <li><a class="dropdown-item" href="util/logout.php">Logout</a></li>
                                     </li>
@@ -158,7 +151,7 @@
                                 }
 
                                 
-                                if (($_SESSION['role'] ?? '') == 'ADMIN') {
+                                if (($user['role'] ?? '') == 'ADMIN') {
                                     echo '
                                     <li>
                                     <a class="dropdown-item" href="admin.php">Dashboard</a>

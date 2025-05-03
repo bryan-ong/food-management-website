@@ -85,8 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-    <title>Edit Restaurant</title>
-    <?php include 'header.php'; ?>
+<title>Edit Restaurant</title>
+<?php include 'header.php'; ?>
 </head>
 
 <script>
@@ -218,13 +218,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <button type="submit" name="submit" class="btn btn-lg btn-green rounded-pill mt-3">Update Restaurant</button>
                                     </form>
                                 </div>
-
-
-
-
-
-
-
                             </div>
 
 
@@ -236,37 +229,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <h2 class="text-white my-auto">Edit Restaurant's Dishes</h2>
                                         </button>
                                     </h2>
+
+                                    <?php
+                                    $sql = "SELECT * FROM dishes WHERE restaurant_id = " . intval($restaurant['restaurant_id']);
+                                    $result = $conn->query($sql);
+
+                                    $dishes = [];
+                                    if ($result->num_rows > 0) {
+                                        while ($dish = $result->fetch_assoc()) {
+                                            $dishes[] = [
+                                                'id' => $dish['dish_id'],
+                                                'name' => $dish['dish_name'],
+                                                'price' => $dish['unit_price'],
+                                                'description' => $dish['dish_description'],
+                                                'image_url' => $dish['image_url'],
+                                                'cuisine_type' => $dish['cuisine_type'],
+                                                'vegetarian' => $dish['vegetarian']
+                                            ];
+                                        }
+                                    }
+                                    ?>
+
                                     <div id="collapseOneDish" class="accordion-collapse collapse show d-flex flex-wrap" data-bs-parent="#dishAccordion">
 
-                                        <?php
-                                        $sql = "SELECT * FROM dishes WHERE restaurant_id = $id";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                            while ($dish = $result->fetch_assoc()) {
-                                                $id          = htmlspecialchars($dish['dish_id']);
-                                                $name        = htmlspecialchars($dish['dish_name']);
-                                                $price       = htmlspecialchars($dish['unit_price']);
-                                                $description = htmlspecialchars($dish['dish_description']);
-                                                $image_url   = htmlspecialchars($dish['image_url']);
-                                        ?>
-
-                                                <div class="col-4 my-5 px-5">
-                                                    <a href="edit_dish.php?id=<?= $id ?>" style="text-decoration: none">
-
-                                                        <div class="shadow-lg card grub-card">
-                                                            <img src="<?= $image_url ?>" class="grub-card-img" style="height: 300px;" alt="<?= $name ?>">
-                                                            <div class="card-body d-flex flex-column flex-grow-1">
-                                                                <h5 class="card-title mb-0 text-center"><?= $name ?></h5>
-                                                            </div>
-                                                        </div>
-                                                    </a>
+                                        <?php if (!empty($dishes)): ?>
+                                            <div class="d-flex mx-auto flex-wrap my-5 rounded shadow-lg bg-green col-12" id="dishes-container">
+                                                <script>
+                                                    const products = <?= json_encode($dishes, JSON_UNESCAPED_SLASHES) ?>;
+                                                    $(document).ready(function() {
+                                                        renderProducts(products, "edit");
+                                                    });
+                                                </script>
+                                            <?php else: ?>
+                                                <div class="col-10 mx-auto my-5 py-5 text-white text-center rounded-pill bg-green shadow-lg">
+                                                    <h1>No dishes found!</h1>
                                                 </div>
-                                        <?php
-                                            }
-                                        } else {
-                                            echo '<div class="col-10 mx-auto my-5 py-5 text-white text-center rounded-pill bg-green shadow-lg"><h1>No dishes found!</h1></div>';
-                                        }
-                                        ?>
+                                            </div>
+                                        <?php endif; ?>
+
 
                                     </div>
                                 </div>
