@@ -72,7 +72,7 @@
     animation-delay: var(--delay);
 }
 
-.navbar {
+.navbar, .search-icon {
     transition: all 0.3s ease;
 }
 
@@ -149,6 +149,17 @@ html, body {
     box-shadow: 0 0 0 0.25rem rgba(8, 170, 76, 0.25);
 }
 
+.checkbox-green:checked {
+    background-color: var(--grab-green) !important;
+}
+
+.checkbox-green {
+    transition: all 0.3s ease;
+    border-color: white !important;
+}
+
+
+
 .accordion-button:not(.collapsed) {
     background-color: var(--grab-green);
 }
@@ -174,6 +185,35 @@ html, body {
     color: white;
     font-weight: 600;
     transition: all 0.3s ease;
+}
+
+.btn-green-pressed {
+    font-size: 16px;
+    border-radius: 6px;
+    box-shadow: inset 3px 3px 5px rgba(0,0,0,0.3),
+                inset -3px -3px 5px rgba(255,255,255,0.7);
+    transform: translateY(3px);
+    cursor: pointer;
+}
+
+.dish-search-component, .dish-search-component:focus:not(:hover) {
+    padding-left: 2.5rem !important;
+    transition: padding-left 0.2s ease;
+}
+
+.dish-search-component:focus,
+.dish-search-component:hover {
+    padding-left: 0.5rem !important;
+}
+
+.dish-search-component::placeholder {
+    color: white;
+    transition: color 0.2s ease;
+}
+
+.dish-search-component:focus::placeholder,
+.dish-search-component:hover::placeholder {
+    color: var(--grab-green);
 }
 
 .btn-green:hover {

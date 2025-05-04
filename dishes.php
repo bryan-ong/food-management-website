@@ -45,7 +45,7 @@ require 'util/db_connect.php';
                     foreach ($enumValues as $cuisineType):
                     ?>
                         <label class="dropdown-item list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="<?= $cuisineType ?>">
+                            <input class="form-check-input cuisine-input me-1" type="checkbox" value="<?= $cuisineType ?>">
                             <?= $cuisineType ?>
                         </label>
 
@@ -54,6 +54,24 @@ require 'util/db_connect.php';
                 </div>
             </ul>
         </div>
+        <div class="update-sort my-auto px-3 btn btn-green" id="vegetarian-toggle">
+            Vegetarian
+        </div>
+
+        <div class="ms-5 d-flex align-items-center">
+            <label class="me-2 text-white fw-semibold">Food</label>
+            <input type="checkbox" class="my-auto form-check-input checkbox-green" name="food" checked style="height: 32px; width: 32px;">
+        </div>
+
+        <div class="ms-4 d-flex align-items-center">
+            <label class="me-2 text-white fw-semibold">Drinks</label>
+            <input type="checkbox" class="my-auto form-check-input checkbox-green" name="drinks" checked style="height: 32px; width: 32px;">
+        </div>
+
+        <svg class="search-icon ms-auto my-auto" style="transform: translateX(35px);" width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <input class="update-sort my-auto p-2 me-5 btn-green rounded w-25 dish-search-component" oninput="fetchSortedDishes()" placeholder="Search..." id="dish-search">
     </div>
 
 
@@ -62,12 +80,24 @@ require 'util/db_connect.php';
         // I'm just gonna do the functions here for better encapsulation
         let criteria = 'dish_name',
             direction = 'ASC';
+        vegetarian = false;
+        searchQuery = null;
+
 
         function fetchSortedDishes() {
             const selectedCuisines = [];
-            $(".form-check-input:checked").each(function() {
+            $(".cuisine-input:checked").each(function() {
                 selectedCuisines.push($(this).val());
             });
+
+            const includeFood = $('input:checkbox[name=food]').is(':checked');
+            const includeDrinks = $('input:checkbox[name=drinks]').is(':checked');
+
+            console.log(selectedCuisines)
+
+            const vegetarian = $("#vegetarian-toggle").hasClass("btn-green-pressed") == true ? true : false;
+
+            const searchQuery = $("#dish-search").val();
 
             $.ajax({
                 url: "util/get_dishes.php",
@@ -75,7 +105,11 @@ require 'util/db_connect.php';
                 data: {
                     criteria: criteria,
                     direction: direction,
-                    selectedCuisines: selectedCuisines
+                    selectedCuisines: selectedCuisines,
+                    vegetarian: vegetarian,
+                    search: searchQuery,
+                    include_food: includeFood,
+                    include_drinks: includeDrinks
                 },
                 success: function(response) {
                     const productList = JSON.parse(response);
@@ -95,6 +129,12 @@ require 'util/db_connect.php';
             fetchSortedDishes();
         });
 
+
+        $("#vegetarian-toggle").click(function() {
+            $(this).toggleClass("btn-green-pressed");
+            fetchSortedDishes();
+        });
+
         $(".sort-criteria").click(function() {
             $(this).siblings().removeClass("active");
             $(this).addClass("active");
@@ -105,8 +145,6 @@ require 'util/db_connect.php';
         $(".form-check-input").change(function() {
             setTimeout(fetchSortedDishes, 50);
         });
-
-
     </script>
 
     <div class="d-flex mx-auto flex-wrap my-5 rounded shadow-lg bg-green col-12 col-lg-10" id="dishes-container">

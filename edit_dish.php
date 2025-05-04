@@ -4,6 +4,18 @@ require 'util/db_connect.php';
 $success_message = '';
 $error_message = '';
 
+$dish_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+if (isset($_POST['remove-dish-btn'])) {
+    $removeDishStmt = $conn->prepare("DELETE FROM dishes WHERE `dishes`.`dish_id` = ?");
+    $removeDishStmt->bind_param("i", $dish_id);
+    $removeDishStmt->execute();
+    $removeDishStmt->close();
+
+    header("Location: edit_restaurant.php");
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $dish_id = filter_input(INPUT_POST, 'dish_id');
     $dish_name = filter_input(INPUT_POST, 'dish_name');
@@ -45,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     }
 }
 
-$dish_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 if (!$dish_id) {
     header("Location: dish.php");
@@ -115,24 +126,36 @@ $vegetarian       = htmlspecialchars($dish['vegetarian']);
                     <input type="hidden" name="dish_id" value="<?= $dish_id ?>">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div class="mb-4">
-                                <label class="form-label">Dish Name</label>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <label class="form-label">Dish Name</label>
+                                    <button class="btn cart-remove-btn rounded-circle mb-1 p-0" type="submit" name="remove-dish-btn" style="height: 48px">
+                                        <span class="text-muted">Remove Dish</span>
+                                        <svg width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff3232">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#ff3232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </g>
+                                        </svg>
+                                    </button>
+
+                                </div>
                                 <input type="text" class="form-control" name="dish_name" value="<?= $dish_name ?>" required>
                             </div>
 
-
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label class="form-label">Unit Price</label>
                                 <input type="number" class="form-control" name="unit_price" step="0.01" min="0" value="<?= $unit_price ?>" required>
                             </div>
 
 
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label class="form-label">Image URL</label>
                                 <input type="url" class="form-control" name="image_url" value="<?= $image_url ?>" required>
                             </div>
 
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label class="form-label">Restaurant</label>
                                 <select class="form-select" name="restaurant_id" required>
                                     <?php
@@ -152,7 +175,7 @@ $vegetarian       = htmlspecialchars($dish['vegetarian']);
                                 </select>
                             </div>
 
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label class="form-label">Cuisine</label>
                                 <select class="form-select" name="cuisine_type" required>
                                     <option value="">Select a Cuisine</option>
@@ -175,12 +198,12 @@ $vegetarian       = htmlspecialchars($dish['vegetarian']);
                                 </select>
                             </div>
 
-                            <div class="mb-4 d-flex align-items-center">
+                            <div class="mb-3 d-flex align-items-center">
                                 <label class="form-label me-3 mb-0">Vegetarian?</label>
-                                <input type="checkbox" class="form-check-input" name="vegetarian" <?= $vegetarian ? 'checked' : '' ?> style="height: 24px; width: 24px;">
+                                <input type="checkbox" class="form-check-input checkbox-green" name="vegetarian" <?= $vegetarian ? 'checked' : '' ?> style="height: 24px; width: 24px;">
                             </div>
 
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label class="form-label">Dish Description</label>
                                 <textarea rows="3" class="form-control" name="description" placeholder="No Description Available"><?= $dish_description ?></textarea>
                             </div>

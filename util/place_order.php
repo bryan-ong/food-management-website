@@ -11,10 +11,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['user_id'] ?? '';
     $grand_total = $data['grand_total'] ?? '';
     $cart = $data['cart'] ?? '';
+    $destination = $data['destination'] ?? '';
+    $delivery_type = $data['delivery_type'] ?? '';
 
-    if (!empty($user_id) && !empty($grand_total) && !empty($cart)) {
-        $stmt = $conn->prepare("INSERT INTO orders (user_id, grand_total) VALUES (?, ?)");
-        $stmt->bind_param("id", $user_id, $grand_total);
+    if (!empty($user_id) && !empty($grand_total) && !empty($cart) && !empty($destination) && !empty($delivery_type)) {
+        if ($delivery_type == 'takeawayOption') {
+            $stmt = $conn->prepare("INSERT INTO orders (user_id, grand_total, address, delivery_type) VALUES (?, ?, ?, ?)");
+        } else {
+            $stmt = $conn->prepare("INSERT INTO orders (user_id, grand_total, table_number, delivery_type) VALUES (?, ?, ?, ?)");
+        }
+        $stmt->bind_param("idss", $user_id, $grand_total, $destination, $delivery_type);
+
         if ($stmt->execute()) {
             $order_id = $conn->insert_id;
 

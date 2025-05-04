@@ -215,7 +215,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <label class="form-label">Restaurant Description (optional)</label>
                                             <input type="text" class="form-control" value="<?= htmlspecialchars($restaurant['description']) ?>" name="description" placeholder="No Description Available">
                                         </div>
-                                        <button type="submit" name="submit" class="btn btn-lg btn-green rounded-pill mt-3">Update Restaurant</button>
+                                        <button type="submit" name="submit" class="btn btn-lg btn-green rounded-pill mt-3 w-100">Update Restaurant</button>
                                     </form>
                                 </div>
                             </div>
@@ -230,6 +230,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </button>
                                     </h2>
 
+                                    <div class="d-flex mx-auto justify-content-center">
+                                        <a href="add_dish.php" class="btn btn-light rounded-pill mt-5 px-5 fs-4" style="z-index: 10;">
+                                            Add dishes to <?= htmlspecialchars($restaurant['restaurant_name']) ?>
+                                        </a>
+                                    </div>
                                     <?php
                                     $sql = "SELECT * FROM dishes WHERE restaurant_id = " . intval($restaurant['restaurant_id']);
                                     $result = $conn->query($sql);

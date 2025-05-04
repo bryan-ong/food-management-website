@@ -43,15 +43,60 @@ require_once 'util/db_connect.php';
                 <h1>Items</h1>
                 <hr class="cart-hr">
                 <div id="cart-items"></div>
-                <div class="d-flex justify-content-center mt-4">
+                <div class="d-flex justify-content-center flex-column mt-4">
+
                     <?php if (isset($_SESSION['user_id'])): ?>
+
+                        <div class="d-flex justify-content-center gap-5 mb-4 align-items-center" id="delivery-option-container">
+                            <div class="form-check d-flex align-items-center">
+                                <input class="form-check-input me-2" type="radio" value="DINEIN" name="deliveryOption" id="dine-in-option">
+                                <label class="form-check-label" for="dineInOption">
+                                    <h4 class="mb-0">Dine-In</h4>
+                                </label>
+                            </div>
+                            <div class="form-check d-flex align-items-center">
+                                <input class="form-check-input me-2" type="radio" value="TAKEAWAY" name="deliveryOption" id="takeaway-option" checked>
+                                <label class="form-check-label" for="takeawayOption">
+                                    <h4 class="mb-0">Delivery</h4>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="destination-input" onchange="validateDestinationInput()" placeholder="Enter Delivery Address" name="destination" value="<?php echo htmlspecialchars($user['address']); ?>" required>
+                        </div>
+
                         <button class="btn btn-green btn-lg rounded-pill flex-grow-1 px-5" id="place-order-btn" onclick="placeOrder()">Place Order</button>
+
                         <script>
+                            function validateDestinationInput() {
+                                $("#destination-input").val() == '' ? $("#place-order-btn").prop("disabled", true) : $("#place-order-btn").prop("disabled", false);
+                            }
+
                             const cart = JSON.parse(localStorage.getItem("cart") || "[]");
                             console.log(cart)
+
                             if (cart.length === 0) {
                                 $("#place-order-btn").hide();
+                                $('#delivery-option-container').addClass('d-none');
+                                $('#destination-input').hide();
                             }
+
+                            console.log($('#delivery-option-container').length);
+
+                            $("#dine-in-option").click(function(e) {
+                                $("#destination-input").val('');
+                                $("#destination-input").attr('placeholder', "Enter Table Number");
+                                validateDestinationInput();
+                            });
+
+                            const address = <?php echo json_encode($user['address']) ?>
+
+                            $("#takeaway-option").click(function(e) {
+                                $("#destination-input").val(address);
+                                $("#destination-input").attr('placeholder', "Enter Delivery Address");
+                                validateDestinationInput();
+                            })
                         </script>
                     <?php else: ?>
                         <h2>You must log in to order</h2>
@@ -62,14 +107,14 @@ require_once 'util/db_connect.php';
 
         <div class="col-12 col-lg-3 ps-lg-3 mt-4 mt-lg-0" style="
             background-image: url('assets/receipt.png');
-            background-size: 100% auto;
+            background-size: 100% 50%;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: top;
             z-index: -1;">
 
 
             <div class="p-4 mx-2 p-lg-5 h-100 text-black">
-                <h1>Details</h1>
+                <h1>Receipt</h1>
                 <hr style="border-top: 2px dashed black; opacity: 100;">
                 <div id="order-details"></div>
             </div>
