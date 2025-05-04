@@ -48,9 +48,11 @@ require_once 'util/db_connect.php';
                 </button>
             </a>
 
-            <button class="btn btn-green btn-lg rounded-pill shadow px-4 py-2">
-                Learn More
-            </button>
+            <a href="about.php" class="text-decoration-none">
+                <button class="btn btn-green btn-lg rounded-pill shadow px-4 py-2">
+                    About Us
+                </button>
+            </a>
         </div>
     </div>
 
