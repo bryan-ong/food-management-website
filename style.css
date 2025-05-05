@@ -39,6 +39,11 @@
     color: var(--grab-green) !important;
 }
 
+.selected-restaurant {
+    outline: 4px solid white !important;
+    scale: 1.05;
+}
+
 .cart-image {
     width: 140px; 
     height: 140px; 
@@ -73,7 +78,7 @@
 }
 
 .navbar, .search-icon {
-    transition: all 0.3s ease;
+    transition: all 0.3s ease !important;
 }
 
 .text-decoration-none {
@@ -158,7 +163,10 @@ html, body {
     border-color: white !important;
 }
 
-
+.text-wrap {
+    white-space: normal !important;
+    word-break: break-word !important;
+}
 
 .accordion-button:not(.collapsed) {
     background-color: var(--grab-green);
@@ -180,11 +188,19 @@ html, body {
 }
 
 .btn-green {
-    border: 2px solid white;
-    background-color: var(--grab-green);
-    color: white;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    border: 2px solid white !important;
+    background-color: var(--grab-green) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-red {
+    border: 2px solid white !important;
+    background-color: #FF474C !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
 }
 
 .btn-green-pressed {

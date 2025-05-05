@@ -20,16 +20,17 @@ $(document).ready(function () {
     ////////////////////////////////////////////////////////////////////////////////////
     // CART FUNCTIONALITY
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let subTotal = 0;
-    let grandTotal = 0;
+
 
     $(document).on('click', '.add-to-cart-btn', function () {
         const productId = $(this).data('productId');
         addToCart(productId);
         $(this).text("Added to Cart");
-
+        $(this).prop("disabled", true);
         setTimeout(() => {
             $(this).text("Add to Cart");
+            $(this).prop("disabled", false);
+
         }, 500);
     });
 
@@ -90,15 +91,18 @@ $(document).ready(function () {
 })
 
 async function placeOrder() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
     const data = {
         grand_total: grandTotal.toFixed(2),
-        cart: JSON.parse(localStorage.getItem("cart")) || [],
+        cart: cart,
         destination: $("#destination-input").val(),
         delivery_type: $('input:radio[name=deliveryOption]:checked').val()
     }
 
-    console.log($('input:radio[name=deliveryOption]:checked').val())
+    // console.log($('input:radio[name=deliveryOption]:checked').val())
 
+    
     try {
         const response = await fetch("util/place_order.php", {
             method: 'POST',
@@ -107,8 +111,10 @@ async function placeOrder() {
             },
             body: JSON.stringify(data)
         });
-
+    
         const result = await response.json();
+        console.log(result); // Log the response to see the parsed object
+    
         if (result.success) {
             console.log('Inserted ID:', result.id);
             localStorage.setItem("cart", JSON.stringify([]));
@@ -116,6 +122,7 @@ async function placeOrder() {
             $("#place-order-btn").text("Order Placed!");
             $("#place-order-btn").removeClass("btn btn-lg btn-green");
             $("#place-order-btn").addClass("alert alert-success fs-3 text-white fw-semibold bg-green");
+            $("#place-order-btn").attr("disabled", true);
             $("#order-details").empty();
             $('#delivery-option-container').addClass('d-none');
             $('#destination-input').hide();
@@ -125,17 +132,20 @@ async function placeOrder() {
             renderCart();
         } else {
             console.error('Error:', result.error);
+            $("#place-order-btn").text(result.error || "Error");
         }
     } catch (error) {
         console.error(error);
+        $("#place-order-btn").text("Error");
     }
+    
 }
 
 
-function renderProducts(productList, flag, showRestaurant) {
+function renderProducts(productList, edit, showRestaurant) {
     $("#dishes-container").empty();
     // Too lazy to optimize this
-    if (flag == "edit") {
+    if (edit == true) {
         productList.forEach(dish => {
             $("#dishes-container").append(`
                 <div class="col-12 col-md-6 col-xxl-4 gap-5 my-5 px-5">
@@ -164,7 +174,11 @@ function renderProducts(productList, flag, showRestaurant) {
                 <svg height="24px" width="24px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#0b9e00;} </style> <g> <path class="st0" d="M476.188,24.146c-6.748-3.504-60.728,38.022-185.304,67.086C230.347,105.355,62.5,153.527,65.286,392.815 L0,431.218l20.338,35.598c63.073-40.692,236.014-120.042,409.766-323.621c0,0-26.875,134.419-334.096,311.056 c103.685,53.758,249.604,53.758,360.979-76.806C568.346,246.888,476.188,24.146,476.188,24.146z"></path> </g> </g></svg>
         `) : '';
 
-        const restaurant_name = dish.restaurant_name != null ? dish.restaurant_name : '';
+            let restaurant_name = '';
+            
+            if (showRestaurant == true) {
+                restaurant_name = dish.restaurant_name != null ? dish.restaurant_name : '';
+            }
 
             $("#dishes-container").append(`
             <div class="col-12 col-md-6 col-xxl-4 gap-5 my-5 px-5">
@@ -176,14 +190,14 @@ function renderProducts(productList, flag, showRestaurant) {
                             ${dish.name}
                             <br>
                         </h3>
-                            <span class="text-muted d-flex justify-content-between" style="font-size: 14px; font-weight: lighter;">
+                            <div class="text-muted d-flex justify-content-between" style="font-size: 14px; font-weight: lighter;">
                                 <div>
                                     ${dish.cuisine_type} 
                                 </div>
                                 <div>
                                     ${restaurant_name}
                                 </div>
-                            </span>
+                            </div>
 
 
                         <br>
@@ -256,12 +270,8 @@ async function renderCart() {
     $("#cart-items").empty();
 
 
-    dishes.forEach((dishJSON, index) => {
-        if (dishJSON.error) {
-            return;
-        }
+    dishes.forEach((dish, index) => {
 
-        dish = JSON.parse(dishJSON)
         const quantity = cart[index].quantity
         const itemTotal = dish.unit_price * quantity;
         subTotal += itemTotal
@@ -313,8 +323,13 @@ async function renderCart() {
 
     });
 
-    // Receipt
-    $("#order-details").empty();
+    renderReceipt(subTotal)
+
+};
+
+
+function renderReceipt(subTotal) {
+    $("#receipt").empty();
     const subTotalDisplay = $(`
         <div class="d-flex justify-content-between">
             <h5>Subtotal</h5>
@@ -322,7 +337,7 @@ async function renderCart() {
         </div>
     `)
 
-    $("#order-details").append(subTotalDisplay)
+    $("#receipt").append(subTotalDisplay)
 
     const serviceTaxPercent = 0.06
     let serviceTax = subTotal * serviceTaxPercent;
@@ -334,7 +349,7 @@ async function renderCart() {
         </div>
     `)
 
-    $("#order-details").append(serviceTaxDisplay)
+    $("#receipt").append(serviceTaxDisplay)
 
     const salesTaxPercent = 0.08
     let salesTax = subTotal * salesTaxPercent;
@@ -346,7 +361,7 @@ async function renderCart() {
         </div>
     `)
 
-    $("#order-details").append(salesTaxDisplay)
+    $("#receipt").append(salesTaxDisplay)
 
     grandTotal = salesTax + serviceTax + subTotal;
 
@@ -358,8 +373,8 @@ async function renderCart() {
         </div>
     `)
 
-    $("#order-details").append(grandTotalDisplay)
+    $("#receipt").append(grandTotalDisplay)
 
-    console.log(cart);
+    // console.log(cart);
 
 }

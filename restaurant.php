@@ -53,8 +53,12 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
             <?php
             echo '<script>';
             echo 'const products = [';
-            $sql = "SELECT * FROM dishes WHERE restaurant_id = $restaurant_id";
-            $result = $conn->query($sql);
+            $stmt = $conn->prepare("SELECT * FROM dishes WHERE restaurant_id = ?");
+            $stmt->bind_param("i", $restaurant_id);
+            $stmt-> execute();
+
+            $result = $stmt->get_result();
+
             if ($result->num_rows > 0) {
                 $first = true;
                 while ($dish = $result->fetch_assoc()) {
@@ -71,7 +75,7 @@ $restaurant_name = htmlspecialchars($restaurant['restaurant_name'])
                     ]);
                 }
                 echo '];';
-                echo '$(document).ready(function() { renderProducts(products); });';
+                echo '$(document).ready(function() { renderProducts(products, false, true); });';
                 echo '</script>';
             } else {
                 echo '<div class="col-10 mx-auto my-5 py-5 text-white text-center rounded-pill bg-green shadow-lg"><h1>No dishes found!</h1></div>';

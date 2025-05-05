@@ -49,7 +49,7 @@ require_once 'util/db_connect.php';
 
                         <div class="d-flex justify-content-center gap-5 mb-4 align-items-center" id="delivery-option-container">
                             <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input me-2" type="radio" value="DINEIN" name="deliveryOption" id="dine-in-option">
+                                <input class="form-check-input me-2" type="radio" value="DINE-IN" name="deliveryOption" id="dine-in-option">
                                 <label class="form-check-label" for="dineInOption">
                                     <h4 class="mb-0">Dine-In</h4>
                                 </label>
@@ -66,11 +66,19 @@ require_once 'util/db_connect.php';
                             <input type="text" class="form-control" id="destination-input" onchange="validateDestinationInput()" placeholder="Enter Delivery Address" name="destination" value="<?php echo htmlspecialchars($user['address']); ?>" required>
                         </div>
 
-                        <button class="btn btn-green btn-lg rounded-pill flex-grow-1 px-5" id="place-order-btn" onclick="placeOrder()">Place Order</button>
+                        <?php if ($user['role'] == 'ADMIN'): ?>
+                            <button class="btn btn-green btn-lg rounded-pill flex-grow-1 px-5" disabled>Admin accounts cannot place orders</button>
+                        <?php elseif ($user['role'] == 'SELLER'): ?>
+                            <button class="btn btn-green btn-lg rounded-pill flex-grow-1 px-5" disabled>Seller accounts cannot place orders</button>
+                        <?php else: ?>
+                            <button class="btn btn-green btn-lg rounded-pill flex-grow-1 px-5" id="place-order-btn" onclick="placeOrder()">Place Order</button>
+                        <?php endif ?>
 
                         <script>
+                            const $destinationInput = $("#destination-input");
+
                             function validateDestinationInput() {
-                                $("#destination-input").val() == '' ? $("#place-order-btn").prop("disabled", true) : $("#place-order-btn").prop("disabled", false);
+                                $destinationInput.val() == '' ? $("#place-order-btn").prop("disabled", true) : $("#place-order-btn").prop("disabled", false);
                             }
 
                             const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -82,44 +90,59 @@ require_once 'util/db_connect.php';
                                 $('#destination-input').hide();
                             }
 
-                            console.log($('#delivery-option-container').length);
+
 
                             $("#dine-in-option").click(function(e) {
-                                $("#destination-input").val('');
-                                $("#destination-input").attr('placeholder', "Enter Table Number");
+                                $destinationInput.val('');
+                                $destinationInput.attr('placeholder', "Enter Table Number");
+                                $destinationInput.attr('type', "number");
+                                $destinationInput.attr('step', "1");
+                                $destinationInput.attr('min', "0");
                                 validateDestinationInput();
+                                console.log("DINE IN CICKED")
+
                             });
 
                             const address = <?php echo json_encode($user['address']) ?>
 
                             $("#takeaway-option").click(function(e) {
-                                $("#destination-input").val(address);
-                                $("#destination-input").attr('placeholder', "Enter Delivery Address");
+                                $destinationInput.attr('placeholder', "Enter Delivery Address");
+                                $destinationInput.attr('type', "text");
+                                $destinationInput.removeAttr("step");
+                                $destinationInput.removeAttr("min");
+                                $destinationInput.val(address);
                                 validateDestinationInput();
+                                console.log("TAKEAWAY CLICKED")
                             })
                         </script>
                     <?php else: ?>
-                        <h2>You must log in to order</h2>
+                        <h2 class="text-center">You must log in to order</h2>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 col-lg-3 ps-lg-3 mt-4 mt-lg-0" style="
-            background-image: url('assets/receipt.png');
-            background-size: 100% 50%;
-            background-repeat: no-repeat;
-            background-position: top;
-            z-index: -1;">
+        <div class="col-12 col-lg-3 mt-4 mt-lg-0" style="
+                background-image: url('assets/receipt.png');
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-position: top;
+                z-index: -1;">
 
 
             <div class="p-4 mx-2 p-lg-5 h-100 text-black">
                 <h1>Receipt</h1>
                 <hr style="border-top: 2px dashed black; opacity: 100;">
-                <div id="order-details"></div>
+                <div id="receipt"></div>
             </div>
         </div>
 
     </div>
+
+    <script>
+        $(document).ready(function() {
+            renderReceipt()
+        });
+    </script>
 
     <?php include 'footer.php'; ?>

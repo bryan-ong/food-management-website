@@ -10,9 +10,10 @@
 // $conn = new mysqli($servername, $username, $password, $dbname);
 
 require_once "db_connect.php";
-
+header('Content-Type: application/json');
 // Gotta make a new mysqli as connect_db has some debugging code that I don't want to remove, and it is messing with the AJAX as the JS requires raw jsons
 // I removed the debugging code but it's best not to touch this
+// No longer needed new mysqli instance
 if (!isset($_GET['id'])) {
     exit;
 }

@@ -14,8 +14,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $destination = $data['destination'] ?? '';
     $delivery_type = $data['delivery_type'] ?? '';
 
+    if ($delivery_type == "DINE-IN") {
+
+        $restaurant_ids = [];
+
+        foreach ($cart as $item) {
+            $dish_id = $item['id'];
+
+            $stmt = $conn->prepare("SELECT restaurant_id FROM dishes WHERE dish_id = ?");
+            $stmt->bind_param("i", $dish_id);
+            $stmt->execute();
+            $stmt->bind_result($restaurant_id);
+            $stmt->fetch();
+
+            $restaurant_ids[] = $restaurant_id;
+            $stmt->close();
+        }
+
+
+        if (count(array_unique($restaurant_ids)) > 1) {
+            echo json_encode(['error' => 'Cart items must be from the same restaurant. Try again.']);
+            return;
+        }
+    }
+
+
     if (!empty($user_id) && !empty($grand_total) && !empty($cart) && !empty($destination) && !empty($delivery_type)) {
-        if ($delivery_type == 'takeawayOption') {
+        if ($delivery_type == 'TAKEAWAY') {
             $stmt = $conn->prepare("INSERT INTO orders (user_id, grand_total, address, delivery_type) VALUES (?, ?, ?, ?)");
         } else {
             $stmt = $conn->prepare("INSERT INTO orders (user_id, grand_total, table_number, delivery_type) VALUES (?, ?, ?, ?)");
@@ -35,7 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $itemStmt->execute();
             }
 
-            echo json_encode(['success' => true, 'id' => $order_id]);
+            echo json_encode([
+                'success' => true,
+                'message' => 'All items are from the same restaurant.',
+                'id' => $order_id
+            ]);
         } else {
             echo json_encode(['error' => 'Order placement failed']);
         }

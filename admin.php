@@ -1,9 +1,7 @@
 <?php
 include 'util/db_connect.php';
-// start session so we know who’s here
-if (session_status() === PHP_SESSION_NONE) session_start();
 // if you’re not an admin, bounce out
-if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'ADMIN') {
+if (!isset($_SESSION['user_id']) || !(in_array($user['role'] ?? '', ['ADMIN', 'SELLER']))) {
     header('Location: index.php');
     exit;
 }
@@ -32,11 +30,21 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'ADMIN') {
         <a href="add_dish.php" class="col-10 col-lg-4 bg-green p-5 text-center text-decoration-none btn-light btn rounded-pill">
             <h1>Add a Dish</h1>
         </a>
+
+        <?php if (($user['role'] ?? '') == 'ADMIN'): ?>
         <a href="add_restaurant.php" class="col-10 col-lg-4 bg-green p-5 text-center text-decoration-none btn-green btn rounded-pill">
             <h1>Add a Restaurant</h1>
         </a>
+        <?php endif ?>
+
+        
         <a href="edit_restaurant.php" class="col-10 col-lg-8 bg-green p-5 text-center text-decoration-none btn-green btn rounded-pill">
-            <h1>Edit Restaurant & Dishes</h1>
+            <h1>Edit 
+            <?php if (($user['role'] ?? '') == 'ADMIN'): ?>
+            
+            Restaurant &
+            
+            <?php endif ?> Dishes</h1>
         </a>
     </div>
 

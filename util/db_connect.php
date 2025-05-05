@@ -12,3 +12,5 @@ if ($conn->connect_error) {
 if (session_status() === PHP_SESSION_NONE) session_start();
 include_once "get_user_details.php";
 $user = getUserDetails($conn);
+
+// print_r($user);

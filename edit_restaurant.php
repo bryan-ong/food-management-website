@@ -6,6 +6,8 @@ $error_message = '';
 $restaurant = [];
 $all_restaurants = [];
 
+
+
 $sql = "SELECT restaurant_id, restaurant_name, image_url FROM restaurants ORDER BY restaurant_name";
 $result = $conn->query($sql);
 if ($result) {
@@ -13,15 +15,8 @@ if ($result) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['select_restaurant'])) {
-        $id = (int)$_POST['select_restaurant'];
-        $stmt = $conn->prepare("SELECT * FROM restaurants WHERE restaurant_id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $restaurant = $result->fetch_assoc();
-        $stmt->close();
-    } elseif (isset($_POST['submit'])) {
+
+    if (isset($_POST['submit'])) {
         $id = (int)$_POST['restaurant_id'];
         $restaurant_name = $_POST['restaurant_name'] ?? '';
         $restaurant_name = $_POST['restaurant_name'] ?? '';
@@ -81,8 +76,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             $stmt->close();
         }
+    } elseif (($user['role'] ?? '') === 'ADMIN' && isset($_POST['select_restaurant'])) {
+        $id = (int)$_POST['select_restaurant'];
     }
+} elseif (($user['role'] ?? '') === 'SELLER') {
+    $id = (int)$user['restaurant_id'];
 }
+
+
+if (isset($id)) {
+    $stmt = $conn->prepare("SELECT * FROM restaurants WHERE restaurant_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $restaurant = $result->fetch_assoc();
+    $stmt->close();
+}
+
 ?>
 
 <title>Edit Restaurant</title>
@@ -114,33 +124,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h3 class="my-auto align-items-center">Back to Dashboard</h3>
                 </a>
 
-                <div class="mb-0 pb-0">
-                    <h3 class="mb-5">Select a Restaurant to Edit</h3>
-                    <div class="row row-cols-2 row-cols-md-4 g-4">
+                <?php if (($user['role'] ?? '') == 'ADMIN'): ?>
+
+                    <div class="mb-0 pb-0">
+                        <h3 class="mb-5">Select a Restaurant to Edit</h3>
+                        <div class="row row-cols-2 row-cols-md-4 g-4">
 
 
-                        <?php foreach ($all_restaurants as $r): ?>
-                            <div class="col">
-                                <form method="POST">
-                                    <input type="hidden" name="select_restaurant" value="<?= $r['restaurant_id'] ?>">
-                                    <div class="card grub-card h-75" <?= isset($restaurant['restaurant_id']) && $restaurant['restaurant_id'] == $r['restaurant_id'] ? 'selected-restaurant' : '' ?>">
-                                        <?php if (!empty($r['image_url'])): ?>
-                                            <div style="height: 80%;" class="card-image-container">
-                                                <img src="<?= htmlspecialchars($r['image_url']) ?>"
-                                                    class="card-img-top h-100 w-100 grub-card-img"
-                                                    style="object-fit: cover; transition: transform 0.3s ease;">
+                            <?php foreach ($all_restaurants as $r): ?>
+                                <div class="col">
+                                    <form method="POST">
+                                        <input type="hidden" name="select_restaurant" value="<?= $r['restaurant_id'] ?>">
+                                        <div class="card grub-card h-75 <?= isset($restaurant['restaurant_id']) && $restaurant['restaurant_id'] == $r['restaurant_id'] ? 'selected-restaurant' : '' ?>">
+                                            <?php if (!empty($r['image_url'])): ?>
+                                                <div style="height: 80%;" class="card-image-container">
+                                                    <img src="<?= htmlspecialchars($r['image_url']) ?>"
+                                                        class="card-img-top h-100 w-100 grub-card-img"
+                                                        style="object-fit: cover; transition: transform 0.3s ease;">
+                                                </div>
+                                            <?php endif; ?>
+                                            <div class="card-body d-flex flex-column justify-content-between p-3">
+                                                <h5 class="card-title text-center mb-3"><?= htmlspecialchars($r['restaurant_name']) ?></h5>
+                                                <button type="submit" class="btn btn-green rounded-pill w-100">Edit</button>
                                             </div>
-                                        <?php endif; ?>
-                                        <div class="card-body d-flex flex-column justify-content-between p-3">
-                                            <h5 class="card-title text-center mb-3"><?= htmlspecialchars($r['restaurant_name']) ?></h5>
-                                            <button type="submit" class="btn btn-green rounded-pill w-100">Edit</button>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-                        <?php endforeach; ?>
+                                    </form>
+                                </div>
+                            <?php endforeach; ?>
+
+                        </div>
                     </div>
-                </div>
+
+                <?php endif ?>
 
                 <?php if (!empty($restaurant)): ?>
 
@@ -262,7 +277,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <script>
                                                     const products = <?= json_encode($dishes, JSON_UNESCAPED_SLASHES) ?>;
                                                     $(document).ready(function() {
-                                                        renderProducts(products, "edit");
+                                                        renderProducts(products, true);
                                                     });
                                                 </script>
                                             <?php else: ?>

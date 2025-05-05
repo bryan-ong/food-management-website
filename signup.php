@@ -10,9 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
+    $role = $_POST['role'];
 
     // Step 1: Check if all fields are filled
-    if ($username && $email && $password && $confirm_password) {
+    if ($username && $email && $password && $confirm_password && $role) {
 
         // Step 2: Check if username or email already exists
         $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = ? OR email = ?");
@@ -33,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
                 // Prepare SQL to insert the new user
-                $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash, role, created_at) VALUES (?, ?, ?, 'user', NOW())");
-                $stmt->bind_param("sss", $username, $email, $hashed_password);
+                $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash, role, created_at) VALUES (?, ?, ?, ?, NOW())");
+                $stmt->bind_param("ssss", $username, $email, $hashed_password, $role);
 
                 if ($stmt->execute()) {
                     $success = 'Registration successful! You can now <a href="login.php">login</a>.';
@@ -91,12 +92,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label for="confirm_password" class="form-label">Confirm Password</label>
                         <input type="password" name="confirm_password" class="form-control" id="confirm_password" required>
                     </div>
+
+                    <div class="justify-content-around d-flex">
+                        <div class="form-check d-flex align-items-center my-auto">
+                            <input class="form-check-input me-2 my-auto" type="radio" required value="USER" name="role" id="user-account">
+                            <label class="form-check-label d-flex" for="user-account">
+                                <h4 class="my-auto">User</h4>
+                            </label>
+                        </div>
+                        <div class="form-check d-flex align-items-center my-auto">
+                            <input class="form-check-input me-2" type="radio" required value="SELLER" name="role" id="seller-account">
+                            <label class="form-check-label d-flex" for="seller-account">
+                                <h4 class="my-auto">Seller</h4>
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="d-flex mt-4">
                         <button type="submit" class="flex-grow-1 btn btn-green btn-lg rounded-pill">Sign Up</button>
                     </div>
                 </div>
             </div>
         </form>
+
     </div>
 
     <?php include 'footer.php'; ?>

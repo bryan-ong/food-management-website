@@ -127,14 +127,23 @@
 
                 <li class="nav-item dropdown">
                     <?php
-                        
 
-                        $src = $user['pfp_url'] ?? "assets/pfp.png";
 
-                                if (isset($_SESSION['user_id'])) {
-                                    echo '
+                    $src = $user['pfp_url'] ?? "assets/pfp.png";
+
+                    if (isset($_SESSION['user_id'])) {
+
+                        $orderElem = '';
+
+                        if ($user['role'] == 'USER') {
+                            $orderElem = '<li><a class="dropdown-item" href="orders.php">My Orders</a></li>';
+                        } elseif ($user['role'] == 'SELLER') {
+                            $orderElem = '<li><a class="dropdown-item" href="incoming_orders.php">Incoming Orders</a></li>';
+                        }
+
+                        echo '
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="' .htmlspecialchars($src). '" 
+                                <img src="' . htmlspecialchars($src) . '" 
                                     class="rounded-circle"
                                     height="32"
                                     alt="Generic Profile Picture"
@@ -143,22 +152,23 @@
                             </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
-                                    <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
+                                    ' . $orderElem . '
                                     <hr class="dropdown-divider">
                                     <li><a class="dropdown-item" href="util/logout.php">Logout</a></li>
                                     </li>
                                     ';
-                                }
+                    }
 
-                                
-                                if (($user['role'] ?? '') == 'ADMIN') {
-                                    echo '
+
+                    if (in_array($user['role'] ?? '', ['ADMIN', 'SELLER'])) {
+
+                        echo '
                                     <li>
                                     <a class="dropdown-item" href="admin.php">Dashboard</a>
                                     </li>
                                 </ul>
                             ';
-                        }
+                    }
 
                     ?>
                     <!--Somehow hide My Profile if not logged in?-->
@@ -171,16 +181,16 @@
 </nav>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function() {
         const currentPage = location.pathname.split('/').pop();
-        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 
-        navLinks.forEach(link => {
-            const linkPage = link.getAttribute('href').split('/').pop();
-            if (linkPage === currentPage) {
-                link.classList.add('active');
-                // Optional: Highlight parent li as well
-                link.closest('.nav-item').classList.add('active');
+        $('.navbar-nav .nav-link').each(function() {
+            const $link = $(this);
+            const linkPage = $link.attr('href').split('/').pop();
+
+            if (!$link.hasClass('btn-green') && linkPage === currentPage) {
+                $link.addClass('active');
+                $link.closest('.nav-item').addClass('active');
             }
         });
     });
