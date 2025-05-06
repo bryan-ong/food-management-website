@@ -1,0 +1,84 @@
+<span class="emoji-outline">😊</span>
+<span class="emoji-smooth-outline">👍</span>
+<span class="emoji-svg-outline">❤️</span>
+<span class="emoji-stroke">🌟</span>
+
+<style>
+    .emoji-outline {
+        text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    }
+
+    .emoji-smooth-outline {
+        text-shadow:
+            0 0 2px #000,
+            0 0 2px #000,
+            0 0 2px #000,
+            0 0 2px #000;
+    }
+
+    .emoji-svg-outline {
+        filter:
+            drop-shadow(0 0 1px black) drop-shadow(0 0 1px black) drop-shadow(0 0 1px black) drop-shadow(0 0 1px black);
+    }
+
+    .emoji-stroke {
+        -webkit-text-stroke: 2px black;
+        color: white;
+        /* Optional: change emoji color */
+    }
+
+    .black-emoji-svg-outline {
+        color: black;
+        filter:
+            drop-shadow(0 0 1px red) drop-shadow(0 0 1px red) drop-shadow(0 0 1px red) drop-shadow(0 0 1px red);
+    }
+
+    .black-emoji-stroke-outline {
+        color: black;
+        -webkit-text-stroke: 2px red;
+        paint-order: stroke fill;
+        /* Ensures outline appears behind the emoji */
+    }
+
+    .black-emoji-red-outline {
+        color: black;
+        text-shadow:
+            -1px -1px 0 red,
+            0 -1px 0 red,
+            1px -1px 0 red,
+            -1px 0 0 red,
+            1px 0 0 red,
+            -1px 1px 0 red,
+            0 1px 0 red,
+            1px 1px 0 red;
+    }
+
+    .emoji-outline {
+        position: relative;
+        color: transparent;
+        text-shadow: 0 0 3px white;
+    }
+
+    .emoji-outline::before {
+        position: absolute;
+        content: attr(name);
+        text-shadow: 0 0 0 black;
+        /* ⬅︎ Set to parents background colour */
+    }
+</style>
+
+<html style="background-color: #000;">
+    
+    <span class="black-emoji-red-outline">😈</span>
+    <span class="black-emoji-stroke-outline">👿</span>
+    <span class="black-emoji-svg-outline">🖤</span>
+    
+    <span class="emoji-outline" name="👋">👋</span>
+    <span class="emoji-outline" name="🤷‍♂️">🤷‍♂️</span>
+    <span class="emoji-outline" name="🚀">🚀</span>
+
+</html>

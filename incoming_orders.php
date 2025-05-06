@@ -40,10 +40,8 @@ JOIN users AS u ON o.user_id = u.user_id
 WHERE d.restaurant_id = ? 
 GROUP BY o.order_id
 ORDER BY o.order_id DESC
-
-
 ");
-
+// Crazy query btw
 
 $stmt->bind_param("i", $user["restaurant_id"]);
 $stmt->execute();

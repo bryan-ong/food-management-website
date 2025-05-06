@@ -4,6 +4,10 @@
     --grab-green: rgb(8,180,76);
 }
 
+@font-face {
+    font-family: cursive;
+    src: url(sansation_light.woff);
+  }
 
 .bg-green {
     background-color: var(--grab-green)
@@ -122,6 +126,11 @@ html, body {
     object-fit: cover;
     height: 40vh;
     border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.team-img {
+    object-fit: cover;
     transition: all 0.3s ease;
 }
 
@@ -293,4 +302,29 @@ html, body {
         opacity: 1;
         transform: translateY(0px);
     }
+}
+
+/* https://stackoverflow.com/questions/67131651/how-to-implement-star-rating-using-simple-jquery-and-it-should-show-value-by-its */
+/* https://kinsta.com/blog/css-text-outline/ */
+/* https://barrd.dev/article/adding-colour-to-an-emoji-using-different-css-techniques/ */
+/* https://tobiasahlin.com/blog/previous-sibling-css-has/ */
+.stars a {
+    display: inline-block;
+    padding: 0 4px;
+    font-size: 24px;
+    text-decoration: none;
+    color: transparent;
+    border-radius: 4px;
+    text-shadow:
+        1px 1px 0 #fff,
+        -1px 1px 0 #fff,
+        -1px -1px 0 #fff,
+        1px -1px 0 #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.stars a:hover, .stars a:has(+ a:hover), .stars a:has(~ a:hover),
+.stars a.active, .stars a:has( ~ a.active) {
+    color: yellow;
 }

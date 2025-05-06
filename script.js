@@ -102,7 +102,7 @@ async function placeOrder() {
 
     // console.log($('input:radio[name=deliveryOption]:checked').val())
 
-    
+
     try {
         const response = await fetch("util/place_order.php", {
             method: 'POST',
@@ -111,10 +111,10 @@ async function placeOrder() {
             },
             body: JSON.stringify(data)
         });
-    
+
         const result = await response.json();
         console.log(result); // Log the response to see the parsed object
-    
+
         if (result.success) {
             console.log('Inserted ID:', result.id);
             localStorage.setItem("cart", JSON.stringify([]));
@@ -138,7 +138,7 @@ async function placeOrder() {
         console.error(error);
         $("#place-order-btn").text("Error");
     }
-    
+
 }
 
 
@@ -175,7 +175,7 @@ function renderProducts(productList, edit, showRestaurant) {
         `) : '';
 
             let restaurant_name = '';
-            
+
             if (showRestaurant == true) {
                 restaurant_name = dish.restaurant_name != null ? dish.restaurant_name : '';
             }
@@ -330,14 +330,17 @@ async function renderCart() {
 
 function renderReceipt(subTotal) {
     $("#receipt").empty();
-    const subTotalDisplay = $(`
-        <div class="d-flex justify-content-between">
-            <h5>Subtotal</h5>
-            <h5>$${subTotal.toFixed(2)}</h5>
-        </div>
-    `)
+    if (subTotal != null) {
 
-    $("#receipt").append(subTotalDisplay)
+        const subTotalDisplay = $(`
+            <div class="d-flex justify-content-between">
+                <h5>Subtotal</h5>
+                <h5>$${subTotal.toFixed(2)}</h5>
+            </div>
+        `)
+        $("#receipt").append(subTotalDisplay)
+    }
+
 
     const serviceTaxPercent = 0.06
     let serviceTax = subTotal * serviceTaxPercent;
@@ -363,7 +366,17 @@ function renderReceipt(subTotal) {
 
     $("#receipt").append(salesTaxDisplay)
 
-    grandTotal = salesTax + serviceTax + subTotal;
+    let discount = subTotal * (discountPercentage / 100);
+    const discountDisplay = $(`
+        <div class="d-flex justify-content-between">
+            <h5>Loyalty Discount (${discountPercentage}%)</h5>
+            <h5>$${discount.toFixed(2)}</h5>
+        </div>
+    `)
+
+    $("#receipt").append(discountDisplay)
+
+    grandTotal = salesTax + serviceTax + subTotal - discount;
 
     const grandTotalDisplay = $(`
         <hr style="border-top: 2px dashed black; opacity: 100;">
@@ -377,4 +390,67 @@ function renderReceipt(subTotal) {
 
     // console.log(cart);
 
+}
+
+function renderReviews(reviews, role) {
+    console.log(reviews.length)
+
+    $("#review-container").empty();
+
+    if (reviews.length === 0) {
+        $("#review-container").text("Looks like no one has made a Review yet. Be the first to make one.");
+        return
+    }
+
+    let deleteBtn = '';
+
+
+    reviews.forEach(review => {
+        if (role === 'ADMIN') {
+            deleteBtn = `
+                <form method="POST">
+                    <input type="hidden" name="review_id" value="${review.review_id}">
+                    <button class="btn cart-remove-btn rounded-circle my-auto w-auto h-auto p-0" type="submit" name="remove-review-btn" style="height: 48px">
+                        <svg width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff3232">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#ff3232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                        </svg>
+                    </button>
+                </form>
+            `
+        }
+
+        let starCount = '';
+
+        for (i = 0; i < review.rating; i++) {
+            starCount += "&#11088"
+        }
+
+
+        const reviewElem = `
+        <div class="my-3 bg-dark p-3 rounded shadow-lg flex-grow-1 w-100">
+            <div class="d-flex justify-content-between flex-grow-1 w-100 mb-3 align-items-center">
+                <div class="d-flex me-auto gap-3">
+                    <img src="${review.pfp_url}" style="height:32px; width: 32px; object-fit:cover; pointer-events: none;" class="rounded-circle">
+                    <h4>${review.username}</h4>
+                </div>
+                
+                <div class="d-flex gap-3">
+                    <h6 class="my-auto">${starCount}</h6>
+                    <h6 class="text-muted fw-lighter my-auto">${review.created_at}</h6>
+                    ${deleteBtn}
+                </div>
+            </div>
+
+
+            ${review.comment}
+            </div>
+        `
+
+        $("#review-container").append(reviewElem)
+
+    });
 }

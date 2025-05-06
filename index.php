@@ -1,8 +1,10 @@
 <?php
 require_once 'util/db_connect.php';
 ?>
+<title>Grub. The Someday Something App</title>
 
 <?php include 'header.php'; ?>
+
 </head>
 
 
@@ -22,8 +24,10 @@ require_once 'util/db_connect.php';
     <div>
         <div class="position-fixed top-50 start-0 end-0 d-flex py-5 justify-content-center align-items-center bg-green shadow-xlg"
             style="transform: translateY(-50%); z-index: 2;">
-            <div class="text-white text-center fs-1 w-100 slide-up fw-semibold" style="--delay: 1.2s;">
-                The best meals. Anytime, anywhere.
+            <div class="text-white d-flex text-center w-100 slide-up my-auto" style="--delay: 1.2s; font-family: Serif; font-size: max(2.5vw, 28px);">
+                <p class="my-auto mx-auto">
+                    The best meals. Anytime, anywhere.
+                </p>
             </div>
         </div>
         <div class="position-fixed top-50 d-none start-0 end-0 d-xl-flex justify-content-between px-4" style="transform: translateY(-50%); pointer-events: auto; z-index: 3;">
@@ -35,9 +39,11 @@ require_once 'util/db_connect.php';
                 </a>
             </div>
             <div style="width: 33%">
-                <button class="btn btn-green btn-lg rounded-pill shadow px-4 py-2 mx-auto d-block" style="min-width: 120px;">
-                    Learn More
-                </button>
+                <a href="about.php" class="text-decoration-none">
+                    <button class="btn btn-green btn-lg rounded-pill shadow px-4 py-2 mx-auto d-block" style="min-width: 120px;">
+                        About Us
+                    </button>
+                </a>
             </div>
         </div>
         <div class="position-fixed bottom-50 start-0 end-0 d-flex d-xl-none justify-content-center gap-3 px-4 pb-4"

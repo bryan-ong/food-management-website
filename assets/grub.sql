@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2025 at 09:56 PM
+-- Generation Time: May 06, 2025 at 03:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,7 +64,7 @@ INSERT INTO `dishes` (`dish_id`, `dish_name`, `unit_price`, `restaurant_id`, `di
 (30, 'Ultimate Beef Burger', 15.90, 2, 'Juicy grilled beef patty with premium beef streaky, grilled onions, BBQ sauce, cheese, and pickles.', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/e2463767-319f-4905-8fcc-08e4a6a2e60d.jpeg', '2025-05-04 05:09:56', 0, 'North American', 0, 'FOOD'),
 (31, 'Mac n\' Cheese Chicken Burger', 18.90, 2, 'Grilled chicken patty topped with signature fried mac and cheese and turkey strips.', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/0681934e-b721-4485-ba50-8877467604d0.png', '2025-05-04 05:09:56', 0, 'Fusion', 0, 'FOOD'),
 (32, 'Mac n\' Cheese Beef Burger', 19.90, 2, 'Grilled beef patty with signature fried mac and cheese and crispy turkey strips.', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/7e59d73a-de22-464b-ab24-c7a0af11fda6.png', '2025-05-04 05:09:56', 0, 'Fusion', 0, 'FOOD'),
-(33, 'Nasi Lemak Burger', 16.90, 2, 'Coconut-marinated chicken thigh, over-easy fried egg, and homemade sweet-spicy sambal.', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/697fff93-f104-434d-b5ed-ce8c8407c016.png', '2025-05-04 05:09:56', 0, 'Southeast Asian', 0, 'FOOD'),
+(33, 'Nasi Lemak Burger', 16.90, 2, 'Coconut-marinated chicken thigh, over-easy fried egg, and homemade sweet-spicy sambal.', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/697fff93-f104-434d-b5ed-ce8c8407c016.png', '2025-05-04 05:09:56', 0, 'Fusion', 0, 'FOOD'),
 (34, 'Spicy Chicken Burger', 13.90, 2, 'Crispy chicken thigh with our special spicy sauce. A popular choice.', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/c3f4105b-a7a8-48c2-90cd-7a9483c4bdd8.png', '2025-05-04 05:09:56', 0, 'North American', 0, 'FOOD'),
 (35, 'Crispy Chicken Burger', 13.90, 2, 'Crispy chicken thigh, sliced cheese, and homemade sour cream and onion sauce.', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/620c7edc-f054-4b73-8298-288fe43d197f.jpeg', '2025-05-04 05:09:56', 0, 'North American', 0, 'FOOD'),
 (36, 'Aloha Burger', 15.90, 2, 'Grilled chicken patty topped with a pineapple ring and Coney Island sauce.', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/cf2f5759-2373-490f-86fb-bc235513847e.png', '2025-05-04 05:09:56', 0, 'Fusion', 0, 'FOOD'),
@@ -87,7 +87,7 @@ INSERT INTO `dishes` (`dish_id`, `dish_name`, `unit_price`, `restaurant_id`, `di
 (53, 'Hash Browns', 1.29, 20, 'Crispy, golden hash browns.', 'https://s7d1.scene7.com/is/image/mcdonalds/mcdonalds-Hash-Brown-New:product-header-desktop?wid=829&hei=455&dpr=off', '2025-05-04 05:12:13', 0, 'North American', 1, 'FOOD'),
 (54, 'McCafé Coffee', 1.99, 20, 'Freshly brewed coffee available in various sizes and flavors.', 'https://s7d1.scene7.com/is/image/mcdonalds/mcdonalds-White-Coffee-Regular-jan-new-promo:product-header-desktop?wid=829&hei=455&dpr=off', '2025-05-04 05:12:13', 0, 'North American', 1, 'DRINK'),
 (55, 'Vegetarian Mushroom Chicken with Rice', 12.90, 23, 'Crispy mushroom and chicken with rice, offering a savory and satisfying flavor.', 'https://image.feedme.cc/menu/65091b9e8fed74001b9d3bd4/item_2023-09-23T13:58:45.281Z_m8uavt_lweiqx4u', '2025-05-04 05:29:29', 0, 'Southeast Asian', 1, 'FOOD'),
-(56, 'Vegetarian Curry Chicken with Rice', 13.90, 23, 'A fragrant curry made with tender vegetarian chicken served with rice.', 'https://image.feedme.cc/menu/65091b9e8fed74001b9d3bd4/item_2023-09-23T13:58:57.398Z_faqvd2_lweirg4j', '2025-05-04 05:29:29', 0, 'Southeast Asian', 1, 'FOOD'),
+(56, 'Vegetarian Curry Chicken with Rice', 13.90, 23, 'A hearty and flavorful vegetarian dish featuring plant-based chicken simmered in aromatic curry sauce, served with steamed rice for a satisfying meal.', 'https://image.feedme.cc/menu/65091b9e8fed74001b9d3bd4/item_2023-09-23T13:58:57.398Z_faqvd2_lweirg4j', '2025-05-04 05:29:29', 0, 'Southeast Asian', 1, 'FOOD'),
 (57, 'Vegetarian Minced Meat Rice', 10.90, 23, 'Minced vegetarian meat served over a bed of fragrant rice.', 'https://image.feedme.cc/menu/65091b9e8fed74001b9d3bd4/item_2023-09-23T13:59:09.394Z_r8e1ow_lwek7smp', '2025-05-04 05:29:29', 0, 'Southeast Asian', 1, 'FOOD'),
 (58, 'Vegetarian Curry Lamb with Rice', 14.90, 23, 'A curry with lamb-flavored vegetarian meat, served with rice.', 'https://image.feedme.cc/menu/65091b9e8fed74001b9d3bd4/item_2023-09-23T13:59:19.930Z_y9rmhy_lweis570', '2025-05-04 05:29:29', 0, 'Southeast Asian', 1, 'FOOD'),
 (59, 'Vegetarian Minced Meat with Noodle', 9.90, 23, 'Minced vegetarian meat mixed with noodles for a tasty and fulfilling dish.', 'https://image.feedme.cc/menu/65091b9e8fed74001b9d3bd4/item_2023-09-23T14:00:21.786Z_a13cfs_lwekbcp4', '2025-05-04 05:29:29', 0, 'Southeast Asian', 1, 'FOOD'),
@@ -266,8 +266,37 @@ CREATE TABLE `orders` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `delivery_type` enum('DINE-IN','TAKEAWAY','','') NOT NULL DEFAULT 'DINE-IN',
   `table_number` int(11) DEFAULT NULL,
-  `address` text DEFAULT NULL
+  `address` text DEFAULT NULL,
+  `status` enum('PENDING','COMPLETED','CANCELLED','') NOT NULL DEFAULT 'PENDING'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `grand_total`, `created_at`, `delivery_type`, `table_number`, `address`, `status`) VALUES
+(1, 1, 60.84, '2025-05-05 16:20:48', 'DINE-IN', 15, NULL, 'COMPLETED'),
+(2, 1, 65.44, '2025-05-05 16:21:04', 'TAKEAWAY', NULL, 'uosm', 'PENDING'),
+(3, 2, 94.91, '2025-05-05 18:15:37', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'CANCELLED'),
+(4, 2, 21.55, '2025-05-05 18:44:46', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'COMPLETED'),
+(5, 2, 79.73, '2025-05-05 21:44:38', 'DINE-IN', 2, NULL, 'CANCELLED'),
+(6, 1, 19.46, '2025-05-06 00:52:01', 'DINE-IN', 17, NULL, 'PENDING'),
+(7, 2, 62.55, '2025-05-06 01:17:30', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'COMPLETED'),
+(8, 2, 90.14, '2025-05-06 01:40:47', 'DINE-IN', 56, NULL, 'CANCELLED'),
+(9, 2, 51.72, '2025-05-06 04:47:29', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'CANCELLED'),
+(10, 2, 66.53, '2025-05-06 04:57:42', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'COMPLETED'),
+(11, 2, 66.53, '2025-05-06 04:58:16', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'CANCELLED'),
+(12, 2, 39.87, '2025-05-06 05:04:07', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'CANCELLED'),
+(13, 2, 39.87, '2025-05-06 05:05:47', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'PENDING'),
+(14, 2, 39.87, '2025-05-06 05:06:38', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'CANCELLED'),
+(15, 2, 39.87, '2025-05-06 05:07:22', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'CANCELLED'),
+(16, 2, 39.87, '2025-05-06 05:09:14', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'CANCELLED'),
+(17, 2, 39.87, '2025-05-06 05:09:59', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'CANCELLED'),
+(18, 2, 62.36, '2025-05-06 05:11:00', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'COMPLETED'),
+(19, 2, 62.45, '2025-05-06 05:12:08', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'PENDING'),
+(20, 2, 39.87, '2025-05-06 05:12:29', 'DINE-IN', 15, NULL, 'PENDING'),
+(21, 2, 11.39, '2025-05-06 05:13:17', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'PENDING'),
+(22, 2, 13.67, '2025-05-06 05:13:30', 'TAKEAWAY', NULL, '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', 'COMPLETED');
 
 -- --------------------------------------------------------
 
@@ -281,6 +310,93 @@ CREATE TABLE `order_items` (
   `dish_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`order_item_id`, `order_id`, `dish_id`, `quantity`) VALUES
+(1, 1, 36, 1),
+(2, 1, 6, 1),
+(3, 1, 45, 1),
+(4, 1, 215, 1),
+(5, 1, 214, 1),
+(6, 1, 7, 1),
+(7, 2, 150, 1),
+(8, 2, 120, 1),
+(9, 2, 169, 1),
+(10, 2, 104, 1),
+(11, 2, 84, 1),
+(12, 2, 74, 1),
+(13, 3, 1, 1),
+(14, 3, 36, 2),
+(15, 3, 6, 2),
+(16, 3, 45, 2),
+(17, 3, 214, 1),
+(18, 4, 31, 1),
+(19, 5, 1, 2),
+(20, 5, 2, 2),
+(21, 5, 3, 2),
+(22, 6, 47, 1),
+(23, 6, 46, 1),
+(24, 6, 45, 1),
+(25, 7, 1, 1),
+(26, 7, 2, 1),
+(27, 7, 3, 1),
+(28, 7, 32, 1),
+(29, 8, 33, 1),
+(30, 8, 6, 1),
+(31, 8, 45, 1),
+(32, 8, 7, 1),
+(33, 8, 214, 1),
+(34, 8, 201, 3),
+(35, 9, 1, 1),
+(36, 9, 2, 1),
+(37, 9, 36, 1),
+(38, 9, 45, 1),
+(39, 9, 214, 1),
+(40, 10, 1, 1),
+(41, 10, 2, 1),
+(42, 10, 3, 1),
+(43, 10, 36, 1),
+(44, 10, 45, 1),
+(45, 10, 214, 1),
+(46, 11, 1, 1),
+(47, 11, 2, 1),
+(48, 11, 3, 1),
+(49, 11, 36, 1),
+(50, 11, 45, 1),
+(51, 11, 214, 1),
+(52, 12, 1, 1),
+(53, 12, 2, 1),
+(54, 12, 3, 1),
+(55, 13, 1, 1),
+(56, 13, 2, 1),
+(57, 13, 3, 1),
+(58, 14, 1, 1),
+(59, 14, 2, 1),
+(60, 14, 3, 1),
+(61, 15, 1, 1),
+(62, 15, 2, 1),
+(63, 15, 3, 1),
+(64, 16, 1, 1),
+(65, 16, 2, 1),
+(66, 16, 3, 1),
+(67, 17, 1, 1),
+(68, 17, 2, 1),
+(69, 17, 3, 1),
+(70, 18, 32, 1),
+(71, 18, 31, 1),
+(72, 18, 30, 1),
+(73, 19, 31, 1),
+(74, 19, 36, 1),
+(75, 19, 6, 1),
+(76, 19, 45, 1),
+(77, 20, 1, 1),
+(78, 20, 2, 1),
+(79, 20, 3, 1),
+(80, 21, 1, 1),
+(81, 22, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -307,9 +423,53 @@ CREATE TABLE `restaurants` (
 
 INSERT INTO `restaurants` (`restaurant_id`, `restaurant_name`, `address`, `open_time`, `close_time`, `phone_number`, `rating`, `price_range`, `image_url`, `description`) VALUES
 (1, 'Domino\'s Pizza', '70, Ground Floor, Jalan Susur Idaman, Nusa Idaman, 79100 Johor Bahru, Johor Darul Ta\'zim', '10:30:00', '23:00:00', '1-300-88-8333', 3.70, 'MEDIUM', 'https://assets.nst.com.my/images/articles/dominos_1661312345.jpg', 'We\'ll deliver in 30 minutes or less, or it\'s free!'),
-(2, 'Burger Bandit', ' 27, Jalan Eko Botani 3/7, Taman Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', '12:00:00', '22:00:00', '018-358 6779', 4.50, 'MEDIUM', 'https://weeat.asia/bizimg/resources/seller/1587015897175894424/images/productIcon/1e238612-b31c-47e9-9410-adee1f2dad7c.jpeg', 'We are a gourmet fast-serve selling homemade burgers and delicious beverages!'),
+(2, 'Burger Bandit', ' 27, Jalan Eko Botani 3/7, Taman Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', '12:00:00', '22:00:00', '018-358 6779', 4.50, 'MEDIUM', 'https://ecobotaniccity.ecoworld.my/wp-content/uploads/2023/08/thumbnail_burger-scaled.jpg', 'We are a gourmet fast-serve selling homemade burgers and delicious beverages!'),
 (20, 'McDonald\'s', 'Jln Kampung Lalang, Educity, 79100 Iskandar Puteri, Johor Darul Ta\'zim', '00:00:00', '00:00:00', '07-510 3667', 3.80, 'LOW', 'https://external-preview.redd.it/ydtFoz1DJGWi-nYkdUJwyjS8KoT4JgSEbYqAPt4Ftco.png?format=pjpg&auto=webp&s=52688b57369fdbd5d1eb59f75fb83a904ff95df2', 'It\'s Finger Lickin\' Good'),
 (23, 'Yi He Feng', '3, EKO GALLERIA, B0104, BLOK B, TAMAN, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', '11:00:00', '22:00:00', '07-585 6629', 3.90, 'MEDIUM', 'https://i.imgur.com/Dsxsh8G.png', 'Traditional Chinese cuisine integrated with Creative dishes.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `review_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `restaurant_id` int(11) NOT NULL,
+  `rating` int(11) DEFAULT NULL CHECK (`rating` between 1 and 5),
+  `comment` text DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`review_id`, `user_id`, `restaurant_id`, `rating`, `comment`, `created_at`) VALUES
+(1, 1, 2, 5, 'The Ultimate Beef Burger was hands down one of the juiciest burgers I\'ve had in ages. Packed with flavor and cooked perfectly. Burger Bandit really knows how to steal your taste buds—in the best way!', '2025-05-06 23:53:33'),
+(2, 2, 2, 4, 'Tried the Mac n\' Cheese Chicken Burger and wow, it’s like my two favorite comfort foods had a baby. Super cheesy, crispy chicken, and totally satisfying.', '2025-05-05 05:30:03'),
+(3, 1, 2, 5, 'The Nasi Lemak Burger blew me away. Sambal was spot on, and the crunch from the anchovies? Genius. Never thought nasi lemak and burgers would work so well together.', '2025-05-04 17:53:33'),
+(4, 2, 2, 4, 'The Spicy Chicken Burger brought the heat! If you like spicy, you’ll love it. Bun was soft, chicken was crisp, and the sauce had a nice kick.', '2025-05-03 17:24:44'),
+(5, 1, 2, 5, 'Loved the Aloha Burger! The pineapple added just the right touch of sweetness to the savory patty. Definitely ordering it again.', '2025-05-02 17:53:33'),
+(6, 2, 2, 4, 'Tried the Cheesy Tots Chicken Burger and it was packed with cheesy flavor and a nice crunch from the tots. Could’ve used a bit more sauce, but still awesome.', '2025-05-01 17:33:50'),
+(7, 1, 2, 5, 'I wasn’t sure what to expect from the Prawn Katsu Burger, but it was fantastic. Crunchy, juicy prawn patty and a nice tangy slaw. Really unique!', '2025-05-22 17:53:33'),
+(8, 2, 2, 4, 'The Korean Burger had that perfect sweet-spicy glaze, and the pickled veggies gave a nice zing. Felt like I was eating Korean BBQ in burger form.', '2025-05-14 17:53:33'),
+(9, 1, 2, 5, 'Both the Mozzarella Chicken and Mozzarella Beef Burgers were loaded with gooey cheese. If you\'re a cheese lover, these are a must-try.', '2025-05-01 17:53:33'),
+(10, 2, 2, 4, 'The Spicy Kahwin Burger had a bold blend of spices and textures. Loved the mix of ingredients, though it was slightly messy to eat. Worth it though.', '2025-05-07 08:53:33'),
+(11, 2, 20, 5, 'The Big Mac is timeless. The sauce is perfect, and it’s the go-to burger for anyone craving something filling and delicious. Definitely my favorite!', '2025-05-06 19:52:05'),
+(12, 3, 20, 3, 'The Chicken McNuggets are good, but sometimes they can be a bit too greasy. I like them, but they could use a little more seasoning.', '2025-05-06 19:52:05'),
+(13, 8, 20, 2, 'Had the McChicken, and it was dry. The bun wasn’t as fresh as I expected, and the mayo didn’t have enough flavor. Disappointing compared to other places.', '2025-05-06 19:52:05'),
+(14, 9, 20, 4, 'The McFlurry with Oreo is a solid choice for dessert. It’s sweet, creamy, and has a nice balance of Oreo chunks. Always a crowd favorite!', '2025-05-06 19:52:05'),
+(15, 10, 20, 1, 'The fries were soggy, and my burger tasted bland. I expected better from McDonald\'s, especially at this location. Not coming back anytime soon.', '2025-05-06 19:52:05'),
+(16, 2, 20, 4, 'The Egg McMuffin is the perfect breakfast sandwich. The egg is fluffy, and the sausage has just the right spice. Can’t go wrong with this one!', '2025-05-06 19:52:05'),
+(17, 3, 20, 3, 'The Filet-O-Fish is okay, but the fish filet didn’t taste as fresh as I’d hoped. It’s decent, but not my go-to McDonald’s order.', '2025-05-06 19:52:05'),
+(18, 8, 20, 5, 'I love the McCafé iced coffee. It’s the perfect pick-me-up for a long day. I love the caramel flavor, and it’s a great alternative to other coffee shops.', '2025-05-06 19:52:05'),
+(19, 9, 20, 4, 'The Quarter Pounder with Cheese is a great choice. The beef patty is juicy, and the cheese is melty. A hearty burger for a quick meal.', '2025-05-06 19:52:05'),
+(20, 10, 20, 2, 'I ordered a Happy Meal for my kid, and the toy was missing. Not a huge deal, but the food quality was also below average. Not happy with this visit.', '2025-05-06 19:52:05'),
+(27, 8, 20, 5, 'I love McDonald\'s so much!', '2025-05-06 20:00:46'),
+(30, 8, 1, 4, 'Domino\'s Pizza is perfect for parties!', '2025-05-06 20:09:01'),
+(31, 8, 20, 3, 'McDonald\'s is sometimes just what I need for a quick snack when I\'m on the go.', '2025-05-06 20:10:57');
 
 -- --------------------------------------------------------
 
@@ -324,19 +484,28 @@ CREATE TABLE `users` (
   `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `role` enum('USER','ADMIN','SELLER') NOT NULL DEFAULT 'USER',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `pfp_url` text DEFAULT NULL,
+  `pfp_url` text DEFAULT 'assets/pfp.png',
   `phone_number` text DEFAULT NULL,
-  `address` text DEFAULT NULL
+  `address` text DEFAULT NULL,
+  `restaurant_id` int(11) DEFAULT NULL,
+  `orders_made` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `email`, `password_hash`, `role`, `created_at`, `pfp_url`, `phone_number`, `address`) VALUES
-(1, 'Admin', 'admin123@gmail.com', '$2y$10$NiFKX4vTT4OA0sI9Edx01O5DIvntYrsizdfAjeAQkwhvfQ57ZVP0u', 'ADMIN', '2025-05-02 15:17:37', 'https://www.shutterstock.com/image-vector/user-account-avatar-icon-pictogram-600nw-1860375778.jpg', NULL, NULL),
-(2, 'customer1', 'customer1@gmail.com', '$2y$10$ldV/tfl/Gk0HutNuNWiVlOvNUt6NbjSpzVvMvzE6VdnjB7N9Qy5/a', 'USER', '2025-05-02 18:29:56', 'https://static.vecteezy.com/system/resources/previews/013/336/605/non_2x/corporate-profile-icon-business-man-profile-icon-illustration-free-vector.jpg', '123456789', '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim'),
-(3, 'customer2', 'customer2@gmail.com', '$2y$10$wlToP9X5h.vUd4yUmOTtzOCDEjXpPGoO5m3H8YAI7Q2wgCvG36dMe', 'USER', '2025-05-03 19:26:26', NULL, NULL, NULL);
+INSERT INTO `users` (`user_id`, `username`, `email`, `password_hash`, `role`, `created_at`, `pfp_url`, `phone_number`, `address`, `restaurant_id`, `orders_made`) VALUES
+(1, 'admin1', 'admin1@gmail.com', '$2y$10$kAy5ipaP0huv39qdGn0cGeElZWXe1tc8ovmbZ57rgSUBBZtZW6IvC', 'ADMIN', '2025-05-02 15:17:37', 'https://www.shutterstock.com/image-vector/user-account-avatar-icon-pictogram-600nw-1860375778.jpg', NULL, NULL, NULL, 0),
+(2, 'customer1', 'customer1@gmail.com', '$2y$10$ldV/tfl/Gk0HutNuNWiVlOvNUt6NbjSpzVvMvzE6VdnjB7N9Qy5/a', 'USER', '2025-05-02 18:29:56', 'https://static.vecteezy.com/system/resources/previews/013/336/605/non_2x/corporate-profile-icon-business-man-profile-icon-illustration-free-vector.jpg', '123456789', '3, Eko Galleria, C0301, C0302, C0401, Blok C, Taman, Persiaran Eko Botani, 79100 Iskandar Puteri, Johor Darul Ta\'zim', NULL, 400),
+(3, 'customer2', 'customer2@gmail.com', '$2y$10$wlToP9X5h.vUd4yUmOTtzOCDEjXpPGoO5m3H8YAI7Q2wgCvG36dMe', 'USER', '2025-05-03 19:26:26', 'assets/pfp.png', NULL, NULL, NULL, 0),
+(4, 'mcDonalds', 'mcDonalds@gmail.com', '$2y$10$YEmt2.ZW6cC01liWtdxWsuk8Hgh6J12aN7sFLMaYID6imFjKuMrP6', 'SELLER', '2025-05-05 23:18:08', 'https://external-preview.redd.it/ydtFoz1DJGWi-nYkdUJwyjS8KoT4JgSEbYqAPt4Ftco.png?format=pjpg&auto=webp&s=52688b57369fdbd5d1eb59f75fb83a904ff95df2', NULL, NULL, 20, 0),
+(5, 'yiHeFeng', 'yiHeFeng@gmail.com', '$2y$10$jxLjNEv0WZHUJYutopgpFu7gX8uHLcKE6H9ofDxKT4sS90nUSlDti', 'SELLER', '2025-05-05 23:25:00', 'https://i.imgur.com/Dsxsh8G.png', NULL, NULL, 23, 0),
+(6, 'burgerBandit', 'burgerBandit@gmail.com', '$2y$10$.RnInvzEtEbfq4okOP0iu.NJrg1deeEWrikoiQ5M0xt0uUBil2.Ve', 'SELLER', '2025-05-05 23:25:23', 'https://ecobotaniccity.ecoworld.my/wp-content/uploads/2023/08/thumbnail_burger-scaled.jpg', NULL, NULL, 2, 0),
+(7, 'dominosPizza', 'dominosPizza@gmail.com', '$2y$10$PwrJzAAEA4cw.XSso8bhN./NgI/HWHoMionbetA2eOn78NaM7fm76', 'SELLER', '2025-05-05 23:25:44', 'https://assets.nst.com.my/images/articles/dominos_1661312345.jpg', NULL, NULL, 1, 0),
+(8, 'customer3', 'customer3@gmail.com', '$2y$10$aI60iSzyZR96Xq42S2zyK.twi4WnbUSf5qH8AZReYl7Nd0zzM.D6i', 'USER', '2025-05-06 19:49:22', 'assets/pfp.png', NULL, NULL, NULL, 0),
+(9, 'customer4', 'customer4@gmail.com', '$2y$10$AI3yS.ieNsVpZztR5WjYruyXi6YCrpjDb8dvO3BrQIaMTZ5NikLqm', 'USER', '2025-05-06 19:49:31', 'assets/pfp.png', NULL, NULL, NULL, 0),
+(10, 'customer5', 'customer5@gmail.com', '$2y$10$Mlfe8zHYkbp5SxWz3a9on.NHOMKT06vmBNxlpD9FDAYaftehWbmJq', 'USER', '2025-05-06 19:49:39', 'assets/pfp.png', NULL, NULL, NULL, 0);
 
 --
 -- Indexes for dumped tables
@@ -371,6 +540,14 @@ ALTER TABLE `restaurants`
   ADD PRIMARY KEY (`restaurant_id`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`review_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `restaurant_id` (`restaurant_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -386,19 +563,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
+  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `restaurants`
@@ -407,10 +584,16 @@ ALTER TABLE `restaurants`
   MODIFY `restaurant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -434,6 +617,13 @@ ALTER TABLE `orders`
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`dish_id`) REFERENCES `dishes` (`dish_id`);
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

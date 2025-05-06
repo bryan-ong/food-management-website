@@ -31,7 +31,7 @@ require 'util/db_connect.php';
                             <li class="sort-criteria update-sort dropdown-item active" id="dish_name">Alphabetical</li>
                             <li class="sort-criteria update-sort dropdown-item" id="unit_price">Price</li>
                             <li class="sort-criteria update-sort dropdown-item" id="date_added">Recently Added</li>
-                            <li class="sort-criteria update-sort dropdown-item" id="popularity">Popularity</li>
+                            <!-- <li class="sort-criteria update-sort dropdown-item" id="popularity">Popularity</li> -->
                         </ul>
                     </div>
 
@@ -94,7 +94,7 @@ require 'util/db_connect.php';
 
         <div class="w-100 d-lg-flex flex-lg-column justify-content-center mb-4 mb-lg-0 mx-auto px-4" style="max-width: 600px;">
             <div class="d-flex align-items-center w-100 w-lg-auto">
-                <svg class="search-icon" style="position: absolute; transform: translateX(0.65rem);" width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="search-icon" style="position: relative; transform: translateX(2.1rem);" width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
                 <input class="update-sort p-2 btn-green dish-search-component rounded w-100" oninput="fetchSortedDishes()" placeholder="Search..." id="dish-search">

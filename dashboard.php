@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id']) || !(in_array($user['role'] ?? '', ['ADMIN', 'S
     exit;
 }
 ?>
+<title>Dashboard</title>
 
 <?php include 'header.php'; ?>
 </head>
@@ -32,19 +33,18 @@ if (!isset($_SESSION['user_id']) || !(in_array($user['role'] ?? '', ['ADMIN', 'S
         </a>
 
         <?php if (($user['role'] ?? '') == 'ADMIN'): ?>
-        <a href="add_restaurant.php" class="col-10 col-lg-4 bg-green p-5 text-center text-decoration-none btn-green btn rounded-pill">
-            <h1>Add a Restaurant</h1>
-        </a>
+            <a href="add_restaurant.php" class="col-10 col-lg-4 bg-green p-5 text-center text-decoration-none btn-green btn rounded-pill">
+                <h1>Add a Restaurant</h1>
+            </a>
         <?php endif ?>
 
-        
+
         <a href="edit_restaurant.php" class="col-10 col-lg-8 bg-green p-5 text-center text-decoration-none btn-green btn rounded-pill">
-            <h1>Edit 
-            <?php if (($user['role'] ?? '') == 'ADMIN'): ?>
-            
-            Restaurant &
-            
-            <?php endif ?> Dishes</h1>
+            <h1>Edit
+
+                Restaurant &
+
+                Dishes</h1>
         </a>
     </div>
 

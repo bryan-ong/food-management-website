@@ -1,7 +1,7 @@
 <?php
 require_once 'util/db_connect.php';
 ?>
-
+    <title>Restaurants</title>
     <?php include 'header.php'; ?>
 </head>
 
@@ -51,6 +51,7 @@ require_once 'util/db_connect.php';
                             <div class="card-image-container">
                                 <img src="<?= $image_url ?>" class="grub-card-img w-100" alt="<?= $restaurant_name ?>">
                             </div>
+
                             <div class="card-body d-flex flex-column flex-grow-1">
                                 <h3 class="card-title mb-3"><?= $restaurant_name ?></h3>
                                 <p class="lh-sm" style="height: 80px"><?= $address ?></p>
@@ -60,18 +61,19 @@ require_once 'util/db_connect.php';
                                         -
                                         <b><?= date('h:i A', strtotime($close_time)) ?></b>
                                     </p>
-                                    <p>⭐ <b><?= $rating ?></b></p>
+                                    <p>⭐<b><?= $rating ?></b></p>
                                 </div>
                                 <p class="card-text" style="height: 60px; font-style: italic;">"<?= $description ?>"</p>
                                 <p class="card-text"><b><?= $price ?></b></p>
                             </div>
+
                         </div>
                     </a>
                 </div>
         <?php
             }
         } else {
-            echo '<div class="col-12"><p>No restaurants found</p></div>';
+            echo '<div class="col-10 mx-auto my-5 py-5 text-white text-center rounded-pill bg-dark shadow-lg"><h1>No restaurants found!</h1></div>';
         }
         ?>
     </div>

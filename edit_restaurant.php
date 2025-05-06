@@ -6,7 +6,10 @@ $error_message = '';
 $restaurant = [];
 $all_restaurants = [];
 
-
+if (!isset($_SESSION['user_id']) || !(in_array($user['role'] ?? '', ['ADMIN', 'SELLER']))) {
+    header('Location: index.php');
+    exit;
+}
 
 $sql = "SELECT restaurant_id, restaurant_name, image_url FROM restaurants ORDER BY restaurant_name";
 $result = $conn->query($sql);
@@ -120,7 +123,7 @@ if (isset($id)) {
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-12">
-                <a href="admin.php" class="text-decoration-none mb-5 btn btn-green rounded-pill">
+                <a href="dashboard.php" class="text-decoration-none mb-5 btn btn-green rounded-pill">
                     <h3 class="my-auto align-items-center">Back to Dashboard</h3>
                 </a>
 
@@ -203,8 +206,10 @@ if (isset($id)) {
 
 
                                         <div class="mb-3">
-                                            <label class="form-label">Phone Number</label>
-                                            <input type="text" class="form-control" name="phone_number" value="<?= htmlspecialchars($restaurant['phone_number']) ?>" required>
+                                            <label class="form-label">Phone Number (XXX-XXXX-XXX)</label>
+                                            <input type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" name="phone_number" class="form-control"
+                                                value="<?= htmlspecialchars($user['phone_number']) ?>" minlength="7" maxlength="15">
+                                            <!--Based on international phone number laws  -->
                                         </div>
 
                                         <div class="mb-3">

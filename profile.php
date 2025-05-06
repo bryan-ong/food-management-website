@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 if (isset($_POST['reset-pfp-btn'])) {
-    $resetPfpStmt = $conn->prepare("UPDATE users SET pfp_url = NULL WHERE user_id = ?");
+    $resetPfpStmt = $conn->prepare("UPDATE users SET pfp_url = 'assets/pfp.png' WHERE user_id = ?");
     $resetPfpStmt->bind_param("i", $_SESSION['user_id']);
     $resetPfpStmt->execute();
     $resetPfpStmt->close();
@@ -170,6 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Moved fetching user details to a helper method (user.php) as it needs to be used in other files too
 
 ?>
+<title>Profile</title>
 
 <?php include 'header.php'; ?>
 </head>
@@ -211,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <div class="mb-3">
                                         <div class="d-flex justify-content-between align-items-center">
 
-                                            <label class="form-label">Phone Number</label>
+                                            <label class="form-label">Phone Number (XXX-XXXX-XXX)</label>
                                             <button class="btn cart-remove-btn rounded-circle mb-1 p-0" type="submit" name="reset-number-btn" style="width: 48px; height: 48px">
                                                 <svg width="24px" height="24px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff3232">
                                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -223,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             </button>
 
                                         </div>
-                                        <input type="text" name="phone_number" class="form-control"
+                                        <input type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" name="phone_number" class="form-control"
                                             value="<?= htmlspecialchars($user['phone_number']) ?>" minlength="7" maxlength="15">
                                         <!--Based on international phone number laws  -->
 
@@ -247,6 +248,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <input type="text" name="address" class="form-control"
                                             value="<?= htmlspecialchars($user['address']) ?>">
                                     </div>
+
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p>
+                                                <span class="text-muted">Orders Made: </span><?= $user['orders_made'] ?>
+                                            </p>
+
+                                            <p>
+                                                <span class="text-muted">Giving a discount of: </span>
+
+                                                <?= $user['discount_percentage'] ?>%
+
+                                            </p>
+                                        </div>
+
+                                    </div>
+
                                 <?php endif; ?>
 
                                 <div>
@@ -274,14 +292,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </button>
 
                                     </div>
-                                    <input type="url" class="form-control" id="pfp_url" name="pfp_url"
+                                    <input type="text" class="form-control" id="pfp_url" name="pfp_url"
                                         value="<?= !empty($user['pfp_url']) ? htmlspecialchars($user['pfp_url']) : '' ?>">
                                 </div>
 
                                 <?php if (!empty($user['pfp_url'])): ?>
                                     <div class="d-flex justify-content-center">
                                         <img src="<?= htmlspecialchars($user['pfp_url']) ?>"
-                                            style="height: 120px;"
+                                            style="height: 120px; width: 120px; object-fit: cover;"
                                             class="rounded-circle">
                                     </div>
                                 <?php endif; ?>
@@ -317,6 +335,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <?php include 'footer.php'; ?>
-</body>
-
-</html>

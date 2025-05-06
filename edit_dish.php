@@ -1,6 +1,11 @@
 <?php
 require 'util/db_connect.php';
 
+if (!isset($_SESSION['user_id']) || !(in_array($user['role'] ?? '', ['ADMIN', 'SELLER']))) {
+    header('Location: index.php');
+    exit;
+}
+
 $success_message = '';
 $error_message = '';
 
@@ -26,33 +31,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $cuisine_type = filter_input(INPUT_POST, 'cuisine_type');
     $vegetarian = isset($_POST['vegetarian']) ? 1 : 0; // Cuz we are using checkboxes for this field
 
-    if ($dish_id && $dish_name && $unit_price !== false && $image_url && $restaurant_id) {
-        $stmt = $conn->prepare("UPDATE dishes SET 
+    if ($user['role'] == 'ADMIN') {
+        if ($dish_id && $dish_name && $unit_price !== false && $image_url && $restaurant_id) { // Removed restaurant ID
+            $stmt = $conn->prepare("UPDATE dishes SET 
+                dish_name = ?, 
+                unit_price = ?, 
+                image_url = ?, 
+                restaurant_id = ?, 
+                dish_description = ?,
+                cuisine_type = ?,
+                vegetarian = ?
+                WHERE dish_id = ?");
+
+            $stmt->bind_param(
+                "sdsissii",
+                $dish_name,
+                $unit_price,
+                $image_url,
+                $restaurant_id,
+                $description,
+                $cuisine_type,
+                $vegetarian,
+                $dish_id,
+            );
+
+            if ($stmt->execute()) {
+                $success_message = "Dish updated successfully!";
+            } else {
+                $error_message = "Error updating dish: " . $stmt->error;
+            }
+        }
+    } else {
+
+
+        if ($dish_id && $dish_name && $unit_price !== false && $image_url) { // Removed restaurant ID
+            $stmt = $conn->prepare("UPDATE dishes SET 
             dish_name = ?, 
             unit_price = ?, 
             image_url = ?, 
-            restaurant_id = ?, 
+            -- restaurant_id = ?, 
             dish_description = ?,
             cuisine_type = ?,
             vegetarian = ?
             WHERE dish_id = ?");
 
-        $stmt->bind_param(
-            "sdsissis",
-            $dish_name,
-            $unit_price,
-            $image_url,
-            $restaurant_id,
-            $description,
-            $cuisine_type,
-            $vegetarian,
-            $dish_id,
-        );
+            $stmt->bind_param(
+                "sdsssii",
+                $dish_name,
+                $unit_price,
+                $image_url,
+                // $restaurant_id,
+                $description,
+                $cuisine_type,
+                $vegetarian,
+                $dish_id,
+            );
 
-        if ($stmt->execute()) {
-            $success_message = "Dish updated successfully!";
-        } else {
-            $error_message = "Error updating dish: " . $stmt->error;
+            if ($stmt->execute()) {
+                $success_message = "Dish updated successfully!";
+            } else {
+                $error_message = "Error updating dish: " . $stmt->error;
+            }
         }
     }
 }
@@ -155,25 +194,27 @@ $vegetarian       = htmlspecialchars($dish['vegetarian']);
                                 <input type="url" class="form-control" name="image_url" value="<?= $image_url ?>" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Restaurant</label>
-                                <select class="form-select" name="restaurant_id" required>
-                                    <?php
-                                    $sql = "SELECT * FROM restaurants";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0):
-                                        while ($restaurant = $result->fetch_assoc()):
-                                            $selected = ($restaurant['restaurant_id'] == $restaurant_id) ? 'selected' : '';
-                                    ?>
-                                            <option value="<?= htmlspecialchars($restaurant['restaurant_id']) ?>" <?= $selected ?>>
-                                                <?= htmlspecialchars($restaurant['restaurant_name']) ?>
-                                            </option>
-                                    <?php
-                                        endwhile;
-                                    endif;
-                                    ?>
-                                </select>
-                            </div>
+                            <?php if ($user['role'] == "ADMIN"): ?>
+                                <div class="mb-3">
+                                    <label class="form-label">Restaurant</label>
+                                    <select class="form-select" name="restaurant_id" required>
+                                        <?php
+                                        $sql = "SELECT * FROM restaurants";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0):
+                                            while ($restaurant = $result->fetch_assoc()):
+                                                $selected = ($restaurant['restaurant_id'] == $restaurant_id) ? 'selected' : '';
+                                        ?>
+                                                <option value="<?= htmlspecialchars($restaurant['restaurant_id']) ?>" <?= $selected ?>>
+                                                    <?= htmlspecialchars($restaurant['restaurant_name']) ?>
+                                                </option>
+                                        <?php
+                                            endwhile;
+                                        endif;
+                                        ?>
+                                    </select>
+                                </div>
+                            <?php endif ?>
 
                             <div class="mb-3">
                                 <label class="form-label">Cuisine</label>

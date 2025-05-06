@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 if (session_status() === PHP_SESSION_NONE) session_start();
-include_once "get_user_details.php";
+include_once "php_utils.php";
 $user = getUserDetails($conn);
 
 // print_r($user);

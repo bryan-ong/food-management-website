@@ -1,6 +1,11 @@
 <?php
 include 'util/db_connect.php';
 
+if (!isset($_SESSION['user_id']) || !(in_array($user['role'] ?? '', ['ADMIN', 'SELLER']))) {
+    header('Location: index.php');
+    exit;
+}
+
 $success_message = '';
 $error_message = '';
 
@@ -12,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $image_url          = $_POST['image_url'] ?? '';
     $cuisine_type       = $_POST['cuisine_type'] ?? '';
     $vegetarian         = isset($_POST['vegetarian']) ? 1 : 0;
-
     // Prepare and execute SQL statement
     $sql = "INSERT INTO dishes (dish_name, unit_price, dish_description, restaurant_id, image_url, cuisine_type, vegetarian) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -63,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             <div class="col-md-8 col-lg-6">
 
                 <div class="d-flex justify-content-center">
-                    <a href="admin.php" class="text-decoration-none mb-5 btn btn-green rounded-pill">
+                    <a href="dashboard.php" class="text-decoration-none mb-5 btn btn-green rounded-pill">
                         <h3 class="my-auto align-items-center">Back to Dashboard</h3>
                     </a>
                 </div>
@@ -86,22 +90,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                                 <textarea class="form-control" rows="3" name="dish_description" required></textarea>
                             </div>
 
-                            <div class="mb-4">
-                                <label class="form-label">Restaurant</label>
-                                <select class="form-select" name="restaurant_id" required>
-                                    <option value="">Select a Restaurant</option>
-                                    <?php
-                                    $sql = "SELECT * FROM restaurants";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        while ($restaurant = $result->fetch_assoc()) {
-                                            echo "<option value='" . htmlspecialchars($restaurant['restaurant_id']) . "'>"
-                                                . htmlspecialchars($restaurant['restaurant_name']) . "</option>";
+                            <?php if ($user['role'] == "ADMIN"): ?>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Restaurant</label>
+                                    <select class="form-select" name="restaurant_id" required>
+                                        <option value="">Select a Restaurant</option>
+                                        <?php
+                                        $sql = "SELECT * FROM restaurants";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($restaurant = $result->fetch_assoc()) {
+                                                echo "<option value='" . htmlspecialchars($restaurant['restaurant_id']) . "'>"
+                                                    . htmlspecialchars($restaurant['restaurant_name']) . "</option>";
+                                            }
                                         }
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+                                        ?>
+                                    </select>
+                                </div>
+
+                            <?php elseif ($user['role'] === "SELLER"): ?>
+                                <div class="mb-4">
+                                    <label class="form-label">Restaurant</label>
+                                    <select class="form-select" name="restaurant_id" required readonly>
+                                        <?php
+                                        $stmt = $conn->prepare("SELECT restaurant_id, restaurant_name FROM restaurants WHERE restaurant_id = ?");
+                                        $stmt->bind_param("i", $user['restaurant_id']);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+                                        if ($row = $result->fetch_assoc()) {
+                                            echo "<option value='" . htmlspecialchars($row['restaurant_id']) . "' selected>"
+                                                . htmlspecialchars($row['restaurant_name']) . "</option>";
+                                        }
+                                        $stmt->close();
+                                        ?>
+                                    </select>
+                                </div>
+                            <?php endif ?>
 
                             <div class="mb-4">
                                 <label class="form-label">Cuisine</label>

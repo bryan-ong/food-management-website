@@ -145,7 +145,7 @@
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="' . htmlspecialchars($src) . '" 
                                     class="rounded-circle"
-                                    height="32"
+                                    style="height: 32px; width: 32px; object-fit:cover;"
                                     alt="Generic Profile Picture"
                                     loading="lazy" />
                                 <span class="d-lg-none ms-2">Account</span>
@@ -164,7 +164,7 @@
 
                         echo '
                                     <li>
-                                    <a class="dropdown-item" href="admin.php">Dashboard</a>
+                                    <a class="dropdown-item" href="dashboard.php">Dashboard</a>
                                     </li>
                                 </ul>
                             ';

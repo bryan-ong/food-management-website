@@ -90,7 +90,7 @@ require_once 'util/db_connect.php';
                                 $('#destination-input').hide();
                             }
 
-
+                            const discountPercentage = <?= json_encode($user['discount_percentage']) ?>;
 
                             $("#dine-in-option").click(function(e) {
                                 $destinationInput.val('');
